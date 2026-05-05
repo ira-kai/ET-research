@@ -1,0 +1,196 @@
+# papers-architectures.yaml — Segmentation architecture papers indexed for SegUNET
+# Source: perplexity-2026-05-04-pass1.md, pass2.md, pass3.md summaries
+
+entries:
+
+  - file: papers/ritnet.pdf
+    title: "RITnet: Real-time Semantic Segmentation of the Eye for Gaze Tracking"
+    authors: Chaudhary, Kothari, Acharya et al.
+    year: 2019
+    venue: ICCVW 2019
+    contribution: Sub-1MB UNet+DenseNet achieving 95.3% accuracy on OpenEDS 4-class eye segmentation at >300Hz
+    techniques:
+      - Dense skip connections on UNet scaffold
+      - DenseNet blocks to mitigate gradient vanishing in shallow networks
+      - Multi-class (background, sclera, iris, pupil)
+    metrics:
+      accuracy: "95.3% on OpenEDS challenge"
+      speed: ">300 Hz on GTX 1080 Ti"
+      size: "<1 MB"
+    segunet_takeaway: "Direct architectural competitor; dense skip connections at sub-1MB set the latency/size bar. SegUNET must beat this on 7 classes."
+    tags: [architecture, cnn, unet, eye-specific, real-time, mobile]
+
+  - file: papers/segformer.pdf
+    title: "SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers"
+    authors: Xie, Wang, Yu et al.
+    year: 2021
+    venue: NeurIPS 2021
+    contribution: Hierarchical Transformer encoder (MiT) that eliminates positional encodings and achieves SOTA speed/accuracy tradeoff
+    techniques:
+      - Mix Transformer (MiT) encoder with overlapped patch merging
+      - No positional encodings (resolution-agnostic)
+      - Lightweight MLP decoder
+      - Hierarchical multi-scale features
+    metrics:
+      mIoU: "37.4% on ADE20K (B0 variant)"
+      speed: "48 FPS on V100 at Cityscapes resolution"
+      params: "3.8M (B0)"
+      FLOPs: "8.4G (B0)"
+    segunet_takeaway: "Drop-in encoder swap from EfficientNet-B0 to SegFormer-B0; hierarchical features should improve UpperLid/BrightSpot boundaries."
+    tags: [architecture, transformer, encoder, hierarchical, mobile]
+
+  - file: papers/topformer.pdf
+    title: "TopFormer: Token Pyramid Transformer for Mobile Semantic Segmentation"
+    authors: Zhang, Huang, Luo et al.
+    year: 2022
+    venue: CVPR 2022
+    contribution: Token pyramid fuses CNN local features with transformer global features at mobile speed
+    techniques:
+      - Token pyramid from multi-scale CNN features
+      - Lightweight transformer on pooled tokens
+      - Scale-aware semantic injection back to CNN
+    metrics:
+      speed: "1.4ms on iPhone 12 (CoreML)"
+      mIoU: "Competitive with SegFormer-B0 at 5x less latency"
+    segunet_takeaway: "The fastest published architecture at quality — 1.4ms on iPhone proves sub-11ms on VR hardware is achievable with transformer+CNN hybrid."
+    tags: [architecture, transformer, cnn, mobile, real-time, edge-deployment]
+
+  - file: papers/efficientformer.pdf
+    title: "EfficientFormer: Vision Transformers at MobileNet Speed"
+    authors: Li et al. (Snap Research)
+    year: 2022
+    venue: NeurIPS 2022
+    contribution: Proves properly designed ViTs can match MobileNet latency while exceeding accuracy
+    techniques:
+      - Dimension-consistent design removing reshape operations
+      - Latency-driven slimming via neural architecture search
+      - 4D MetaBlock (no attention) in early stages + 3D MHSA in late stages
+    metrics:
+      speed: "MobileNet-equivalent latency on iPhone"
+      accuracy: "Higher than MobileNetV2 on ImageNet"
+    segunet_takeaway: "Validates that transformer encoder can hit MobileNet speed; the 4D→3D stage split is adoptable for SegUNET's encoder design."
+    tags: [architecture, transformer, mobile, edge-deployment, nas]
+
+  - file: papers/mobilevit.pdf
+    title: "MobileViT: Light-weight, General-purpose Vision Transformer"
+    authors: Mehta, Rastegari (Apple)
+    year: 2021
+    venue: ICLR 2022
+    contribution: Combines CNN local processing with transformer global processing in a mobile-friendly architecture
+    techniques:
+      - MobileViT blocks (unfold → transformer → fold)
+      - Multi-scale feature hierarchy
+      - DeepLabV3 decoder integration
+    metrics:
+      params: "5.6M (MobileViT-S)"
+      mIoU: "79.1% on PASCAL VOC (with DeepLab decoder)"
+    segunet_takeaway: "HuggingFace has pretrained DeepLabV3-MobileViT-Small; test as encoder backbone with existing SegUNET decoder."
+    tags: [architecture, transformer, cnn, mobile, apple]
+
+  - file: papers/eyeseg-uncertainty.pdf
+    title: "EyeSeg: An Uncertainty-Aware Eye Segmentation Framework for AR/VR"
+    authors: Peng, Xu, Li et al.
+    year: 2025
+    venue: IJCAI 2025
+    contribution: Frames motion blur, occlusion, and domain gaps as uncertainty quantification; outputs per-pixel uncertainty alongside segmentation
+    techniques:
+      - Bayesian uncertainty learning with closed-set prior
+      - Per-pixel uncertainty score for confidence gating
+      - Weighted multi-estimate fusion using uncertainty
+    metrics:
+      result: "Superior MIoU, boundary error, F1, ACC vs all prior on AR/VR benchmarks"
+    segunet_takeaway: "Uncertainty output directly solves approve/reject in labeling loop — flag frames for review only where model is genuinely uncertain."
+    tags: [architecture, uncertainty, eye-specific, attention, cnn]
+
+  - file: papers/ellseg.pdf
+    title: "EllSeg: An Ellipse Segmentation Framework for Robust Gaze Tracking"
+    authors: Kothari, Chaudhary et al.
+    year: 2021
+    venue: IEEE TVCG
+    contribution: CNN that directly segments elliptical structures (pupil/iris) for robust ellipse fitting without post-hoc fitting
+    techniques:
+      - Direct ellipse mask prediction
+      - Multi-task: segmentation + ellipse parameters
+      - Cross-dataset evaluation (OpenEDS → LPW)
+    metrics:
+      generalization: "Robust cross-dataset (no retraining needed)"
+    segunet_takeaway: "Ellipse prior for Pupil/Iris classes reduces post-processing; consider auxiliary ellipse-parameter loss head on SegUNET."
+    tags: [architecture, ellipse-fitting, eye-specific, gaze, cnn]
+
+  - file: papers/condseg.pdf
+    title: "CondSeg: Ellipse Estimation of Pupil and Iris via Conditioned Segmentation"
+    authors: Jia, Deng, Chi et al.
+    year: 2024
+    venue: arXiv
+    contribution: Estimates elliptical parameters of pupil/iris directly from segmentation labels using conditioned segmentation
+    techniques:
+      - Conditioned segmentation with ellipse priors
+      - Direct parameter regression from mask
+      - Joint seg + geometry estimation
+    metrics:
+      result: "Improved ellipse accuracy over fit-to-mask approaches"
+    segunet_takeaway: "Can add an ellipse parameter head to SegUNET for direct pupil/iris geometry without separate fitting step."
+    tags: [architecture, ellipse-fitting, eye-specific, pupil]
+
+  - file: papers/edgesam.pdf
+    title: "EdgeSAM: Prompt-In-the-Loop Distillation for On-Device Deployment of SAM"
+    authors: Zhou et al. (NTU MMLab)
+    year: 2023
+    venue: arXiv
+    contribution: Distills SAM's ViT-based encoder into a purely CNN architecture for on-device deployment
+    techniques:
+      - Knowledge distillation (ViT teacher → CNN student)
+      - Prompt-in-the-loop training
+      - Purely CNN architecture (no transformer at inference)
+    metrics:
+      speedup: "Significant latency reduction vs ViT-H SAM"
+    segunet_takeaway: "Blueprint for distilling a large SAM-based teacher into SegUNET's deployment-size student model."
+    tags: [architecture, distillation, edge-deployment, foundation-model, sam]
+
+  - file: papers/boundary-iou.pdf
+    title: "Boundary IoU: Improving Object-Centric Image Segmentation Evaluation"
+    authors: Cheng et al.
+    year: 2021
+    venue: arXiv
+    contribution: New evaluation metric focused on boundary quality rather than bulk region overlap
+    techniques:
+      - Boundary-focused IoU computation
+      - Erosion-based boundary band extraction
+      - More sensitive to edge quality than standard IoU
+    metrics:
+      finding: "Standard IoU under-penalizes boundary errors; Boundary IoU correlates better with visual quality"
+    segunet_takeaway: "Use Boundary IoU as primary metric for UpperLid/LowerLid/BrightSpot evaluation where boundaries matter most."
+    tags: [evaluation, metrics, boundary]
+
+  - file: papers/ptq-segmentation.pdf
+    title: "Real Post-Training Quantization Framework for Semantic Segmentation"
+    authors: (Multiple authors)
+    year: 2025
+    venue: arXiv
+    contribution: PTQ framework that successfully quantizes segmentation models with minimal accuracy loss
+    techniques:
+      - Post-training quantization (INT8)
+      - Calibration strategies for segmentation
+      - Layer-wise sensitivity analysis
+    metrics:
+      result: "Minimal mIoU drop at INT8 vs FP32"
+    segunet_takeaway: "Apply PTQ to trained SegUNET for TensorRT INT8 deployment; this paper's calibration strategy avoids the need for QAT."
+    tags: [deployment, quantization, edge-deployment]
+
+  - file: papers/distillgaze.pdf
+    title: "DistillGaze: Rapidly Deploying On-Device Eye Tracking by Distilling Visual Foundation Models"
+    authors: Jiang, Kundu et al. (Meta Reality Labs)
+    year: 2026
+    venue: arXiv (April 2026)
+    contribution: Adapt VFM (ViT-B) via SSL on synthetic+real, then distill to 256K-param on-device student with 58.6% gaze error reduction
+    techniques:
+      - Visual Foundation Model domain adaptation
+      - Self-supervised learning on unlabeled real + labeled synthetic
+      - Knowledge distillation to 256K-param student
+      - Two-stage: adapt teacher, then distill
+    metrics:
+      gaze_improvement: "58.62% median gaze error reduction vs synthetic-only"
+      student_size: "256K parameters"
+      evaluation: "2000+ participant crowd-sourced"
+    segunet_takeaway: "THE production deployment blueprint — adapt DINOv2 on SegUNET data, distill to <500K param model for Beyond deployment."
+    tags: [deployment, distillation, foundation-model, gaze, eye-specific, edge-deployment]

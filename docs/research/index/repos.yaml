@@ -1,0 +1,248 @@
+# repos.yaml — Structured metadata for all cloned repos in inspiration/repos/
+# Key files listed are relative to inspiration/repos/<name>/
+
+entries:
+
+  # === Architecture Repos ===
+
+  - name: RITnet
+    path: repos/ritnet
+    problem: "Real-time 4-class eye segmentation for gaze tracking at >300Hz"
+    techniques:
+      - DenseNet-style U-Net with 32 channels throughout
+      - Dense connectivity with 1x1 bottleneck transitions
+      - Starburst pattern augmentation for reflection robustness
+      - CLAHE + gamma correction preprocessing
+      - 5 down-blocks, 4 up-blocks, bilinear upsample
+    architecture: "DenseUNet-2D, 32ch, avg-pool down, bilinear up + skip concat, LeakyReLU, 4-class output at 640x400"
+    performance:
+      params: "248,900"
+      accuracy: "95.78% mIoU on OpenEDS validation"
+      speed: ">300Hz on GTX 1080 Ti"
+      input_size: "640x400"
+    relevance_to_segunet: "Direct ancestor — proves sub-250K param models achieve strong eye seg. Channel width (32) and dense block pattern are the baseline to beat for 7-class."
+    key_files:
+      - densenet.py
+      - dataset.py
+      - train.py
+      - models.py
+    tags: [architecture, unet, eye-specific, real-time, baseline, dense-connections]
+
+  - name: SegFormer
+    path: repos/SegFormer
+    problem: "Efficient semantic segmentation with hierarchical transformer encoder"
+    techniques:
+      - Mix Transformer (MiT) encoder
+      - Overlapped patch merging
+      - No positional encodings
+      - Lightweight MLP decoder
+    architecture: "Hierarchical ViT encoder (MiT-B0 to B5) + simple MLP decoder head"
+    performance:
+      mIoU: "37.4% ADE20K (B0), 50.3% (B5)"
+      speed: "48 FPS on V100 (B0)"
+    relevance_to_segunet: "Drop-in encoder swap candidate. MiT-B0 at 3.8M params with spatial-reduction attention brings transformer quality within latency budget."
+    key_files:
+      - mmseg/models/backbones/mix_transformer.py
+      - mmseg/models/decode_heads/segformer_head.py
+      - local_configs/segformer/B0/segformer.b0.512x512.ade.160k.py
+    tags: [architecture, transformer, encoder, hierarchical, efficient-attention]
+
+  - name: TopFormer
+    path: repos/TopFormer
+    problem: "Mobile semantic segmentation combining CNN speed with transformer quality"
+    techniques:
+      - Token pyramid from multi-scale CNN
+      - Lightweight transformer on pooled tokens
+      - Scale-aware semantic injection
+      - CNN-transformer hybrid
+    architecture: "MobileNetV2 backbone → token pyramid → tiny transformer → inject back to CNN features"
+    performance:
+      speed: "1.4ms on iPhone 12 (CoreML)"
+      mIoU: "Competitive with SegFormer-B0"
+    relevance_to_segunet: "Fastest published quality architecture. 1.4ms on iPhone proves sub-11ms on Beyond is achievable."
+    key_files:
+      - mmseg/models/backbones/topformer.py
+      - local_configs/topformer/topformer_tiny.py
+      - local_configs/topformer/topformer_base.py
+    tags: [architecture, transformer, cnn, mobile, fastest, token-pyramid]
+
+  - name: EfficientFormer
+    path: repos/EfficientFormer
+    problem: "Vision Transformers at MobileNet latency via architecture optimization"
+    techniques:
+      - 4D MetaBlock (no attention) in early stages
+      - 3D MHSA in late stages only
+      - Latency-driven NAS
+      - Dimension-consistent design
+    architecture: "4-stage network: early stages use 4D convolution blocks, late stages use 3D attention"
+    relevance_to_segunet: "The 4D→3D stage split reduces early-stage compute; adoptable for SegUNET's encoder where spatial resolution is largest."
+    key_files:
+      - models/efficientformer.py
+      - models/efficientformer_v2.py
+    tags: [architecture, transformer, mobile, nas]
+
+  - name: ml-cvnets (MobileViT)
+    path: repos/ml-cvnets
+    problem: "General-purpose lightweight vision transformer for mobile deployment"
+    techniques:
+      - MobileViT block (unfold → transformer → fold)
+      - Local+global representation learning
+      - Multi-scale hierarchy
+    architecture: "MobileNetV2-like stages with MobileViT blocks replacing some conv layers"
+    relevance_to_segunet: "HuggingFace has pretrained DeepLabV3-MobileViT-Small; test as encoder with existing SegUNET decoder."
+    key_files:
+      - cvnets/models/classification/mobilevit.py
+      - cvnets/models/segmentation/
+    tags: [architecture, transformer, cnn, mobile, apple]
+
+  - name: EyeSeg
+    path: repos/EyeSeg
+    problem: "Uncertainty-aware eye segmentation handling motion blur, occlusion, and domain gaps"
+    techniques:
+      - Bayesian uncertainty learning
+      - Per-pixel uncertainty output
+      - Confidence-gated fusion
+      - Closed-set prior
+    architecture: "Segmentation network + uncertainty estimation branch"
+    relevance_to_segunet: "Uncertainty scores replace binary approve/reject threshold — flag for review only where genuinely uncertain."
+    key_files:
+      - "(code pending release per README)"
+    tags: [architecture, uncertainty, eye-specific, bayesian]
+
+  - name: EllSeg
+    path: repos/EllSeg
+    problem: "Direct elliptical structure segmentation for pupil/iris without post-hoc fitting"
+    techniques:
+      - Elliptical structure segmentation (predict full ellipse, not just visible edge)
+      - Soft-argmax center-of-mass loss for pupil/iris localization
+      - Surface loss + generalized Dice + weighted CE combined loss
+      - RANSAC outlier removal on ellipse fits
+      - Multi-dataset training (OpenEDS, NVGaze, RITEyes, LPW, Fuhl)
+    architecture: "DenseElNet encoder-decoder (based on RITnet), outputs elliptical masks with auxiliary soft-argmax center coordinates"
+    performance:
+      pupil: ">10% improvement within 2px error vs standard segmentation"
+      iris: ">24% improvement within 2px error vs standard segmentation"
+    relevance_to_segunet: "Ellipse-aware loss functions and soft-argmax center localization directly useful for SegUNET Pupil/Iris classes. Multi-dataset training shows how to generalize."
+    key_files:
+      - loss.py
+      - models/RITnet_v3.py
+      - train.py
+      - helperfunctions.py
+    tags: [architecture, ellipse-fitting, eye-specific, gaze, loss-functions, multi-dataset]
+
+  # === Training / SSL Repos ===
+
+  - name: CSL
+    path: repos/CSL
+    problem: "Semi-supervised semantic segmentation via convex optimization for pseudo-label selection"
+    techniques:
+      - Convex optimization pseudo-label selection
+      - Confidence separation without manual thresholds
+      - Class-balanced selection
+    training_strategy: "Standard supervised on labeled + CSL-selected pseudo-labels on unlabeled"
+    relevance_to_segunet: "Drop-in improvement over fixed-threshold pseudo-labeling for SegUNET's unlabeled frame pool. PCOS module is the key innovation."
+    key_files:
+      - CSL.py
+      - train/semi_supervised_train.py
+      - util/PCOS.py
+      - model/semseg/deeplabv3plus.py
+    tags: [semi-supervised, pseudo-labels, optimization, confidence-calibration]
+
+  - name: cleanlab
+    path: repos/cleanlab
+    problem: "Automatically detect and fix label errors in ML datasets"
+    techniques:
+      - Confident learning
+      - Out-of-distribution detection
+      - Label quality scoring
+      - Segmentation-specific label error detection
+    training_strategy: "Post-hoc analysis tool — run on trained model predictions vs labels"
+    relevance_to_segunet: "Run on SegUNET's 1500 labeled frames to find annotation errors before training; directly improves label quality."
+    key_files:
+      - cleanlab/segmentation/filter.py
+      - cleanlab/segmentation/rank.py
+      - cleanlab/internal/segmentation_utils.py
+      - cleanlab/filter.py
+    tags: [label-quality, tool, error-detection, data-centric]
+
+  - name: DeepVOG
+    path: repos/DeepVOG
+    problem: "Open-source pupil segmentation and 3D gaze estimation from video"
+    techniques:
+      - Fully convolutional network for pupil seg
+      - 3D eyeball model fitting
+      - Video-based gaze estimation
+    training_strategy: "Supervised FCN training on labeled pupil images"
+    relevance_to_segunet: "Reference implementation for seg→gaze pipeline; 3D eyeball model fitting from segmentation is the downstream consumer of SegUNET masks."
+    key_files:
+      - deepvog/model/DeepVOG_model.py
+      - deepvog/eyefitter.py
+      - deepvog/inferer.py
+      - deepvog/ellipses.py
+    tags: [gaze, pupil-detection, pipeline, eye-specific, geometric-model]
+
+  - name: Seg2Eye
+    path: repos/Seg2Eye
+    problem: "Generate person-specific realistic eye images from segmentation masks (NVIDIA)"
+    techniques:
+      - Conditional GAN (SPADE-based)
+      - Style encoding per person
+      - Segmentation mask → realistic image
+      - Data augmentation via synthesis
+    training_strategy: "GAN training: encoder learns style, generator produces realistic eyes conditioned on mask+style"
+    relevance_to_segunet: "Generate augmentation data: create synthetic eye images from SegUNET masks to expand training set per subject. SPADE conditioning is key."
+    key_files:
+      - train.py
+      - models/pix2pix_model.py
+      - models/networks/
+      - data/prepare_openeds.py
+    tags: [augmentation, synthetic-data, gan, spade, eye-specific]
+
+  - name: few-shot-scanpath
+    path: repos/few-shot-scanpath
+    problem: "Personalized scanpath prediction from few labeled examples"
+    techniques:
+      - Few-shot meta-learning
+      - Personalization via adaptation
+      - Scanpath modeling
+    training_strategy: "Meta-learning: train on many users, adapt to new user with few examples"
+    relevance_to_segunet: "Few-shot personalization paradigm for per-user SegUNET calibration with minimal frames."
+    key_files:
+      - models/
+      - train.py
+    tags: [few-shot, personalization, meta-learning]
+
+  - name: GazeShift / VRGaze
+    path: repos/gazeshift
+    problem: "Unsupervised gaze estimation for VR with off-axis near-eye dataset (2.1M images)"
+    techniques:
+      - Self-supervised gaze redirection (source-to-target synthesis)
+      - Learned latent gaze representation from temporal pairs
+      - Gaze-aware attention loss emphasizing eye regions
+      - MobileNetV2 backbone for 5ms inference
+      - VRGaze dataset (2.1M near-eye IR images, 68 participants)
+    training_strategy: "Unsupervised — encoder extracts gaze-rich latent from target, decoder redirects source. No gaze labels needed; per-person calibration at test time."
+    relevance_to_segunet: "VRGaze dataset is #1 pretraining source (2.1M off-axis IR). Attention maps and latent representations could provide auxiliary supervision for segmentation on unlabeled frames."
+    key_files:
+      - models/GazeShift.py
+      - models/CrossEncoder.py
+      - gaze_shift.py
+      - config.py
+    tags: [dataset, pretraining, unsupervised, gaze, eye-specific, self-supervised]
+
+  - name: domain-adaptation-eye-tracking
+    path: repos/domain-adaptation-eye-tracking
+    problem: "Sim2Real domain adaptation for eye tracking systems"
+    techniques:
+      - Deep domain adaptation
+      - Feature distribution matching
+      - Synthetic→real transfer
+      - Distribution pruning
+    training_strategy: "Align synthetic feature distributions with real data before training on synthetic"
+    relevance_to_segunet: "MUST apply before using RIT-Eyes synthetic data — SRCGAN + siamese filtering prevents harmful synthetic samples from degrading performance."
+    key_files:
+      - srcgan_train.py
+      - vietlib/model/segment.py
+      - train_dann_mix.py
+      - siamese_train.py
+    tags: [domain-adaptation, synthetic-data, eye-specific, cyclegan, siamese]

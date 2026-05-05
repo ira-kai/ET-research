@@ -1,0 +1,159 @@
+# papers-training.yaml — SSL, active learning, and label efficiency papers for SegUNET
+# Source: perplexity-2026-05-04-pass1.md, pass2.md summaries
+
+entries:
+
+  - file: papers/csl-semi-supervised.pdf
+    title: "When Confidence Fails: Revisiting Pseudo-Label Selection in Semi-supervised Semantic Segmentation"
+    authors: Liu, Liu
+    year: 2025
+    venue: ICCV 2025
+    contribution: "Confidence Separable Learning (CSL) formulates pseudo-label selection as convex optimization, outperforming threshold-based methods"
+    techniques:
+      - Convex optimization for pseudo-label selection
+      - Separates confident from uncertain predictions mathematically
+      - No manual threshold tuning needed
+    metrics:
+      result: "SOTA semi-supervised segmentation on Cityscapes and PASCAL VOC"
+    segunet_takeaway: "Replace fixed confidence thresholds in pseudo-label generation with CSL's optimization-based selection for SegUNET's unlabeled pool."
+    tags: [semi-supervised, pseudo-labels, optimization]
+
+  - file: papers/act-pseudo-labels.pdf
+    title: "Feedback-Driven Pseudo-Label Reliability Assessment: Redefining Thresholding for Semi-Supervised Semantic Segmentation"
+    authors: Ghamsarian et al.
+    year: 2025
+    venue: arXiv
+    contribution: "Adaptive Confidence Thresholding (ACT) dynamically adjusts thresholds per class based on model feedback"
+    techniques:
+      - Dynamic per-class threshold adjustment
+      - Feedback-driven reliability assessment
+      - Class-aware pseudo-label filtering
+    metrics:
+      result: "Consistent improvement over fixed thresholds across datasets"
+    segunet_takeaway: "Per-class thresholds solve BrightSpot (<1% pixels) vs Sclera (large area) imbalance in pseudo-label quality."
+    tags: [semi-supervised, pseudo-labels, class-imbalance]
+
+  - file: papers/semi-supervised-active-learning.pdf
+    title: "Integrating Semi-Supervised and Active Learning for Semantic Segmentation"
+    authors: Ma, Karakus, Rosin
+    year: 2025
+    venue: arXiv
+    contribution: "Novel active learning approach integrated with improved semi-supervised learning for segmentation"
+    techniques:
+      - Combined SSL + active learning loop
+      - Uncertainty-based sample selection
+      - Iterative annotation budget allocation
+    segunet_takeaway: "Framework for deciding which unlabeled frames to annotate next — prioritize high-uncertainty frames for human review."
+    tags: [semi-supervised, active-learning, annotation-budget]
+
+  - file: papers/ssl-eye-segmentation.pdf
+    title: "Semi-Supervised Learning for Eye Image Segmentation"
+    authors: (ETRA 2021 authors)
+    year: 2021
+    venue: ETRA 2021
+    contribution: "Two SSL frameworks for eye-part identification exploiting radial eye anatomy with spatially-varying transforms"
+    techniques:
+      - Domain-specific spatially-varying augmentations
+      - Concentric distortion exploiting eye anatomy
+      - Radial scaling and polar-coordinate jitter
+      - Designed for pupil/iris/sclera circular symmetry
+    metrics:
+      result: "Improved eye segmentation with limited labels using eye-specific augmentation"
+    segunet_takeaway: "Radial/concentric augmentations designed for eye anatomy — directly applicable to UpperLid/Iris boundary confusion."
+    tags: [semi-supervised, eye-specific, augmentation, domain-specific]
+
+  - file: papers/sclera-ssl.pdf
+    title: "Boosting Sclera Segmentation through Semi-supervised Learning with Fewer Labels"
+    authors: Wang, Wang, Niu et al.
+    year: 2025
+    venue: arXiv
+    contribution: "SSL framework with domain-specific spatial transforms specifically for sclera segmentation in NIR"
+    techniques:
+      - Task-specific spatial transforms for periocular NIR
+      - Self-supervised pretraining + supervised fine-tuning
+      - Pseudo-label refinement
+    metrics:
+      result: "Outperforms large-scale generic SSL with task-specific small-scale data"
+    segunet_takeaway: "Adapt this paper's spatial transforms for SegUNET's Sclera class to close IoU 0.756 → 0.80 gap without more annotation."
+    tags: [semi-supervised, sclera, eye-specific, domain-specific]
+
+  - file: papers/cross-pseudo-supervision.pdf
+    title: "Semi-Supervised Semantic Segmentation With Cross Pseudo Supervision"
+    authors: Chen, Yuan, Zeng, Wang
+    year: 2021
+    venue: CVPR 2021
+    contribution: "Two networks with same architecture but different init co-supervise via mutual pseudo-labels — simplest credible SSL baseline"
+    techniques:
+      - Dual-network cross pseudo supervision
+      - Weak→strong augmentation consistency
+      - Same architecture, different initialization
+      - Mutual pseudo-label generation
+    metrics:
+      result: "SOTA on Cityscapes and PASCAL VOC semi-supervised"
+      analog: "+13 mIoU in 22-label IR task (validated in IOVS 2023 follow-up)"
+    segunet_takeaway: "Simplest SSL baseline for SegUNET — run two EfficientNet-B0 UNets with different seeds, apply mutual pseudo-supervision on unlabeled pool."
+    tags: [semi-supervised, pseudo-labels, dual-network, baseline]
+
+  - file: papers/sam-zero-shot-eye.pdf
+    title: "Zero-Shot Segmentation of Eye Features Using the Segment Anything Model (SAM)"
+    authors: Maquiling, Byrne et al.
+    year: 2024
+    venue: ETRA 2024
+    contribution: "SAM achieves 93.34% IoU for pupil and 86.63% for iris in VR near-eye images using bounding box prompts"
+    techniques:
+      - SAM with bounding box prompts
+      - Zero-shot (no training on eye data)
+      - Evaluated on VR near-eye IR images
+    metrics:
+      pupil_iou: "93.34%"
+      iris_iou: "86.63%"
+      sclera: "Degrades significantly without fine-tuning"
+    segunet_takeaway: "Use SAM as auto-annotator for Pupil/Iris classes — eliminates ~50% of annotation work, shift human effort to UpperLid/BrightSpot."
+    tags: [foundation-model, sam, zero-shot, eye-specific, annotation]
+
+  - file: papers/unsupervised-eye-segmentation.pdf
+    title: "Towards Unsupervised Eye-Region Segmentation for Eye Tracking"
+    authors: Deng, Jia, Wang et al.
+    year: 2024
+    venue: ECCV 2024 ICVSE Workshop
+    contribution: "Achieves 90% of supervised performance for pupil/iris using NO labeled data via SAM auto-prompting with structural eye priors"
+    techniques:
+      - SAM auto-prompting guided by eye structure priors
+      - Progressive learning from rough to refined
+      - Prior: pupil=darkest round region, iris surrounds it
+      - Trains student on refined pseudo-labels
+    metrics:
+      pupil_iris: "90% of supervised performance"
+      full_eye: "85% of supervised performance"
+    segunet_takeaway: "Run this unsupervised pipeline on new unlabeled captures BEFORE human review — reduces annotation queue from full labeling to boundary correction."
+    tags: [semi-supervised, foundation-model, sam, unsupervised, eye-specific, pseudo-labels]
+
+  - file: papers/sim2real-eye-tracking.pdf
+    title: "Deep Domain Adaptation: A Sim2Real Neural Approach for Improving Eye-Tracking Systems"
+    authors: (RIT PerForm Lab)
+    year: 2024
+    venue: ETRA 2024
+    contribution: "Domain adaptation from synthetic to real eye images using feature-space alignment"
+    techniques:
+      - Deep domain adaptation
+      - Feature-space distribution matching
+      - Synthetic→real transfer
+    segunet_takeaway: "Apply before using RIT-Eyes synthetic data — ensures synthetic features align with SegUNET's real frame distribution."
+    tags: [domain-adaptation, synthetic-data, eye-specific]
+
+  - file: papers/distillgaze.pdf
+    title: "DistillGaze: Rapidly Deploying On-Device Eye Tracking by Distilling Visual Foundation Models"
+    authors: Jiang et al. (Meta Reality Labs)
+    year: 2026
+    venue: arXiv (April 2026)
+    contribution: "VFM adapt → distill pipeline achieves 58.6% gaze error reduction at 256K params"
+    techniques:
+      - VFM (ViT-B) domain adaptation via SSL
+      - Self-supervised on synthetic+real unlabeled
+      - Knowledge distillation to tiny student
+      - Two-stage pipeline
+    metrics:
+      improvement: "58.62% median gaze error reduction"
+      student_params: "256K"
+    segunet_takeaway: "Phase 3 architecture blueprint — adapt DINOv2/SAM on SegUNET's mixed data, distill to deployment-size student."
+    tags: [distillation, foundation-model, deployment, eye-specific, gaze]

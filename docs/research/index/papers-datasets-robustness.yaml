@@ -1,0 +1,180 @@
+# papers-datasets-robustness.yaml — Datasets, robustness, deployment, and classical papers
+# Source: perplexity-2026-05-04-pass1.md, pass2.md, pass3.md summaries
+
+entries:
+
+  # === DATASETS ===
+
+  - file: papers/openeds.pdf
+    title: "OpenEDS: Open Eye Dataset"
+    year: 2019
+    contribution: "12,759 eye images with 4-class segmentation labels (background, sclera, iris, pupil) from 152 participants"
+    techniques: [near-eye imaging, 4-class annotation, VR headset capture]
+    segunet_takeaway: "Primary benchmark dataset for 4-class eye seg; use for cross-dataset evaluation (but note fronto-parallel camera geometry)."
+    tags: [dataset, eye-specific, benchmark]
+
+  - file: papers/openeds2020.pdf
+    title: "OpenEDS2020: Open Eyes Dataset"
+    year: 2020
+    contribution: "Second edition with eye-image sequences for temporal gaze prediction and segmentation"
+    techniques: [temporal sequences, gaze prediction, sequence modeling]
+    segunet_takeaway: "Temporal sequences enable frame-to-frame consistency evaluation; useful for testing temporal smoothing."
+    tags: [dataset, eye-specific, temporal, sequences]
+
+  - file: papers/rit-eyes.pdf
+    title: "RIT-Eyes: Rendering of Near-Eye Images for Eye-Tracking Applications"
+    year: 2020
+    contribution: "Blender-based synthetic eye image generation with anatomical accuracy and per-pixel labels"
+    techniques: [synthetic rendering, Blender pipeline, anatomical eye model, per-pixel ground truth]
+    segunet_takeaway: "Free infinite synthetic training data with perfect labels; use for pretraining but apply domain adaptation before fine-tuning."
+    tags: [dataset, synthetic-data, rendering, augmentation]
+
+  - file: papers/gazeshift-vrgaze.pdf
+    title: "GazeShift: Unsupervised Gaze Estimation and Dataset for VR"
+    year: 2026
+    venue: CVPR 2026
+    contribution: "VRGaze: 2.1M off-axis near-eye IR images from 68 participants; GazeShift: unsupervised gaze at 5ms with 10x fewer params"
+    techniques:
+      - Off-axis camera geometry (matches modern HMDs)
+      - Attention-guided appearance disentanglement
+      - Unsupervised gaze learning
+      - Few-shot per-user calibration
+    metrics:
+      dataset_size: "2.1M images, 68 participants"
+      speed: "5ms on VR headset GPU"
+      params: "10x fewer than baseline, 35x fewer FLOPs"
+    segunet_takeaway: "HIGHEST PRIORITY pretraining source — 2.1M off-axis IR images supersede NVGaze. Also proves 5ms inference is achievable."
+    tags: [dataset, eye-specific, pretraining, gaze, unsupervised, deployment]
+
+  # === SIGNAL QUALITY & ROBUSTNESS ===
+
+  - file: papers/meta-quest-pro-signal-quality.pdf
+    title: "Evaluation of Eye Tracking Signal Quality for VR Applications: Meta Quest Pro"
+    year: 2024
+    venue: ETRA 2024
+    contribution: "78-participant dataset with spatial accuracy maps across FOV and luminance conditions on Quest Pro"
+    techniques: [spatial accuracy analysis, gaze direction evaluation, luminance testing]
+    segunet_takeaway: "Only published spatial accuracy map of commercial HMD ET — use to weight SegUNET evaluation by gaze direction (peripheral = harder)."
+    tags: [evaluation, robustness, eye-specific, commercial-hmd]
+
+  - file: papers/hololens2-signal-quality.pdf
+    title: "Assessment of Eye Tracking Signal Quality Captured in the HoloLens 2"
+    year: 2021
+    contribution: "Characterizes HoloLens 2 ET signal quality (accuracy, precision, linearity) providing a slippage stress-test protocol"
+    techniques: [spatial accuracy, precision measurement, slippage protocol]
+    segunet_takeaway: "Ready-made evaluation framework for measuring robustness under HMD wear conditions."
+    tags: [evaluation, robustness, slippage, commercial-hmd]
+
+  - file: papers/slippage-robust-gaze.pdf
+    title: "Slippage-Robust Gaze Tracking for Near-eye Display"
+    year: 2022
+    contribution: "Methods to maintain gaze accuracy despite HMD slippage during natural head/face movement"
+    techniques: [slippage compensation, geometric correction, multi-frame fusion]
+    segunet_takeaway: "SegUNET's test set must include slippage conditions; this paper provides the degradation model."
+    tags: [robustness, slippage, gaze, deployment]
+
+  - file: papers/dnn-eye-tracking-degradation.pdf
+    title: "Characterizing Performance of Deep Neural Networks for Eye Tracking Under Variable Conditions"
+    year: 2021
+    venue: ETRA 2021
+    contribution: "Tests DNN keypoint detection under increasing exposure, reflection, defocus blur, eye rotation, and partial occlusion"
+    techniques: [systematic degradation testing, keypoint detection, failure mode characterization]
+    segunet_takeaway: "Defines the exact augmentation conditions SegUNET should train against — exposure, blur, reflection, occlusion."
+    tags: [robustness, degradation, evaluation, augmentation]
+
+  - file: papers/periocular-nir-segmentation.pdf
+    title: "Semantic Segmentation of Periocular Near-Infra-Red Eye Images Under Degraded Conditions"
+    authors: Tapia et al.
+    year: 2021
+    contribution: "Framework for NIR eye segmentation robust to degraded capture conditions (blur, noise, low contrast)"
+    techniques: [NIR-specific preprocessing, degradation-aware training, periocular segmentation]
+    segunet_takeaway: "NIR-specific augmentation strategies for degraded conditions directly applicable to Beyond's IR sensor."
+    tags: [robustness, nir, degradation, eye-specific]
+
+  - file: papers/ssrbc-2023.pdf
+    title: "SSRBC 2023 - Sclera Segmentation and Recognition Benchmarking Competition"
+    year: 2023
+    contribution: "Group benchmarking showing bias in sclera segmentation across eye color, gaze direction, ethnicity, and capture device"
+    techniques: [cross-dataset evaluation, demographic bias analysis, group benchmarking]
+    segunet_takeaway: "SegUNET must evaluate Sclera IoU stratified by demographics; this benchmark provides the methodology."
+    tags: [evaluation, bias, sclera, demographics]
+
+  # === CLASSICAL PUPIL DETECTION ===
+
+  - file: papers/starburst.pdf
+    title: "Starburst: A Robust Algorithm for Video-Based Eye Tracking"
+    year: 2005
+    contribution: "Foundational hybrid feature+model-based pupil detection via ray casting from corneal reflection"
+    techniques: [ray casting, corneal reflection removal, iterative RANSAC, feature+model hybrid]
+    segunet_takeaway: "Historical baseline — all deep methods inherit Starburst's problem formulation. Useful as sanity-check reference."
+    tags: [classical, pupil-detection, foundational]
+
+  - file: papers/swirski-pupil-tracking.pdf
+    title: "Robust Real-Time Pupil Tracking in Highly Off-Axis Images"
+    authors: Swirski, Bulling, Dodgson
+    year: 2012
+    contribution: "Real-time dark-pupil tracking for head-mounted active-IR using Haar features + ellipse fitting"
+    techniques: [Haar-like features, coarse-to-fine detection, ellipse fitting, off-axis correction]
+    segunet_takeaway: "Established off-axis pupil detection — the camera geometry problem SegUNET also faces on Beyond."
+    tags: [classical, pupil-detection, off-axis, ellipse]
+
+  - file: papers/pure-pupil-detection.pdf
+    title: "PuRe: Robust Pupil Detection for Real-Time Pervasive Eye Tracking"
+    year: 2018
+    contribution: "Edge-based pupil detection using novel edge selection and ellipse fitting for real-time pervasive use"
+    techniques: [edge filtering, morphological operations, conditional random field, ellipse reconstruction]
+    segunet_takeaway: "State-of-art classical method; its edge features degrade under dust/dirt (Tübingen benchmark) — deep learning advantage."
+    tags: [classical, pupil-detection, real-time, edge-based]
+
+  - file: papers/else-ellipse-pupil.pdf
+    title: "ElSe: Ellipse Selection for Robust Pupil Detection in Real-World Environments"
+    year: 2016
+    contribution: "Filtered edge image → ellipse candidates → selection via learned scoring for robust pupil detection"
+    techniques: [edge filtering, ellipse candidate generation, learned scoring function]
+    segunet_takeaway: "The classical ellipse-selection pipeline that EllSeg and CondSeg improve upon with deep learning."
+    tags: [classical, pupil-detection, ellipse, edge-based]
+
+  - file: papers/pupil-labs-platform.pdf
+    title: "Pupil: An Open Source Platform for Pervasive Eye Tracking and Mobile Gaze-based Interaction"
+    year: 2014
+    contribution: "Open-source eye tracking platform with hardware designs and software for pervasive gaze interaction"
+    techniques: [open-source platform, modular pipeline, real-time processing, wearable hardware]
+    segunet_takeaway: "Reference implementation for a complete ET pipeline; SAM2 integration tutorial builds on this platform."
+    tags: [platform, open-source, pipeline, deployment]
+
+  # === OTHER ===
+
+  - file: papers/event-driven-eye-seg.pdf
+    title: "Real-Time Gaze Tracking with Event-Driven Eye Segmentation"
+    year: 2022
+    contribution: "Eye tracking at 30Hz on mobile by emulating event camera behavior for efficient ROI prediction"
+    techniques: [event camera emulation, ROI prediction, sparse computation, lightweight segmentation]
+    segunet_takeaway: "Sparse/event-driven processing could reduce SegUNET's compute for temporal redundancy between frames."
+    tags: [deployment, event-camera, real-time, mobile]
+
+  - file: papers/few-shot-scanpath.pdf
+    title: "Few-shot Personalized Scanpath Prediction"
+    year: 2025
+    venue: CVPR 2025
+    contribution: "Personalized gaze scanpath prediction from few examples, adapting to individual viewing preferences"
+    techniques: [few-shot learning, personalization, scanpath prediction, meta-learning]
+    segunet_takeaway: "Few-shot personalization paradigm applicable to per-user SegUNET calibration with minimal labeled frames."
+    tags: [few-shot, personalization, gaze]
+
+  - file: papers/domain-adaptation-eye-seg.pdf
+    title: "Domain Adaptation for Eye Segmentation"
+    year: 2020
+    venue: OpenEyes Workshop 2020
+    contribution: "Domain adaptation framework reducing labeling cost by transferring from synthetic/annotated to unlabeled real"
+    techniques: [domain adaptation, adversarial training, style transfer]
+    segunet_takeaway: "Validated approach for synthetic→real transfer specifically for eye segmentation."
+    tags: [domain-adaptation, eye-specific, synthetic-data]
+
+  - file: papers/eye-tracked-vr-survey.pdf
+    title: "Eye-Tracked Virtual Reality: A Comprehensive Survey on Methods and Privacy Challenges"
+    year: 2025
+    venue: Proceedings of the IEEE
+    contribution: "Complete computational pipeline survey covering pupil detection through gaze estimation with privacy analysis"
+    techniques: [survey, taxonomy, pipeline analysis, privacy architecture]
+    segunet_takeaway: "Single highest-coverage reference — use as canonical literature map and cross-reference check."
+    tags: [survey, comprehensive, pipeline, privacy]

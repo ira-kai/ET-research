@@ -6,311 +6,665 @@
 
 entries:
 
-  # === Repos ===
+  # ============================================================
+  # REPOS
+  # ============================================================
 
   - url: https://bitbucket.org/eye-ush/ritnet/
     type: repo
     name: RITnet
     description: Real-time eye segmentation (U-Net + DenseNet, sub-1MB, 4-class)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://github.com/NVlabs/SegFormer
     type: repo
     name: SegFormer
     description: Hierarchical Transformer encoder for semantic segmentation (NeurIPS 2021)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://github.com/hustvl/TopFormer
     type: repo
     name: TopFormer
     description: Token Pyramid Transformer for mobile semantic segmentation (CVPR 2022)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://github.com/snap-research/EfficientFormer
     type: repo
     name: EfficientFormer
     description: Vision Transformers at MobileNet speed (NeurIPS 2022)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://github.com/apple/ml-cvnets
     type: repo
     name: MobileViT (ml-cvnets)
     description: Light-weight general-purpose vision transformer for mobile
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://github.com/cvlab-stonybrook/few-shot-scanpath
     type: repo
     name: Few-Shot Scanpath Prediction
     description: Few-shot personalized scanpath prediction (CVPR 2025)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://github.com/PanLiuCSU/CSL
     type: repo
     name: CSL (Confidence Separable Learning)
     description: Semi-supervised semantic segmentation pseudo-label selection (ICCV 2025)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://github.com/cleanlab/cleanlab
     type: repo
     name: cleanlab
     description: Find label errors in segmentation datasets automatically
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://github.com/RSKothari/EllSeg
     type: repo
     name: EllSeg
     description: Ellipse segmentation framework for robust gaze tracking
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://github.com/pydsgz/DeepVOG
     type: repo
     name: DeepVOG
     description: Open-source pupil segmentation and gaze estimation (FCN-based)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://github.com/mcbuehler/Seg2Eye
     type: repo
     name: Seg2Eye
     description: Content-consistent generation of realistic eyes with style (NVIDIA)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
-  # === Papers (arXiv) ===
+  - url: https://github.com/JethroPeng/EyeSeg
+    type: repo
+    name: EyeSeg
+    description: Uncertainty-aware eye segmentation for AR/VR (IJCAI 2025)
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://github.com/gazeshift3/gazeshift
+    type: repo
+    name: GazeShift / VRGaze
+    description: Unsupervised gaze estimation + 2.1M off-axis VR eye dataset (CVPR 2026)
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://github.com/PerForm-Lab-RIT/domain-adaptation-eye-tracking
+    type: repo
+    name: Sim2Real Domain Adaptation for Eye Tracking
+    description: RIT PerForm Lab deep domain adaptation for eye tracking (ETRA 2024)
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  # ============================================================
+  # PAPERS (arXiv / conference)
+  # ============================================================
+
+  # --- Pass 1 papers ---
 
   - url: https://arxiv.org/abs/1910.00694
     type: paper
     name: "RITnet: Real-time Semantic Segmentation of the Eye for Gaze Tracking"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2105.15203
     type: paper
     name: "SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2204.05525
     type: paper
     name: "TopFormer: Token Pyramid Transformer for Mobile Semantic Segmentation"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2206.01191
     type: paper
     name: "EfficientFormer: Vision Transformers at MobileNet Speed"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2110.02178
     type: paper
     name: "MobileViT: Light-weight, General-purpose Vision Transformer"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/1905.03702
     type: paper
     name: "OpenEDS: Open Eye Dataset"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2005.03876
     type: paper
     name: "OpenEDS2020: Open Eyes Dataset"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2006.03642
     type: paper
     name: "RIT-Eyes: Rendering of near-eye images for eye-tracking applications"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2504.05499
     type: paper
     name: "Few-shot Personalized Scanpath Prediction"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2505.07691
     type: paper
     name: "Feedback-Driven Pseudo-Label Reliability Assessment (ACT)"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2509.16704
     type: paper
     name: "CSL: Revisiting Pseudo-Label Selection in Semi-supervised Semantic Segmentation"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2501.19227
     type: paper
     name: "Integrating Semi-Supervised and Active Learning for Semantic Segmentation"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2007.09600
     type: paper
     name: "EllSeg: An Ellipse Segmentation Framework for Robust Gaze Tracking"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2408.17231
     type: paper
     name: "CondSeg: Ellipse Estimation of Pupil and Iris via Conditioned Segmentation"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2501.17343
     type: paper
     name: "Real Post-Training Quantization (PTQ) framework for segmentation"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2312.06660
     type: paper
     name: "EdgeSAM: Prompt-In-the-Loop Distillation for On-Device SAM"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://arxiv.org/abs/2103.16562
     type: paper
     name: "Boundary IoU: Improving Object-Centric Image Segmentation Evaluation"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
-  # === Datasets ===
+  # --- Pass 2 papers ---
+
+  - url: https://arxiv.org/abs/2507.09649
+    type: paper
+    name: "EyeSeg: Uncertainty-Aware Eye Segmentation Framework for AR/VR (IJCAI 2025)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://doi.org/10.1145/3649902.3653351
+    type: paper
+    name: "CSA-CNN: Contrastive Self-Attention Neural Network for Pupil Segmentation (ETRA 2024)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded  # saved as articles/csa-cnn-etra2024.html
+
+  - url: https://pubmed.ncbi.nlm.nih.gov/41829365/
+    type: paper
+    name: "Comprehensive Eye-Tracking System Toward Large FOV HMD (IEEE Access 2026)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2603.07832
+    type: paper
+    name: "GazeShift: Unsupervised Gaze Estimation and Dataset for VR (CVPR 2026)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2403.07210
+    type: paper
+    name: "Evaluation of Eye Tracking Signal Quality - Meta Quest Pro (ETRA 2024)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2311.08077
+    type: paper
+    name: "Zero-Shot Segmentation of Eye Features Using SAM (ETRA 2024)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2410.06131
+    type: paper
+    name: "Towards Unsupervised Eye-Region Segmentation for Eye Tracking (ECCV 2024 ICVSE)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2103.09369
+    type: paper
+    name: "Semi-Supervised Learning for Eye Image Segmentation (ETRA 2021)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2501.07750
+    type: paper
+    name: "Boosting Sclera Segmentation through SSL with Fewer Labels (2025)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://openaccess.thecvf.com/content/CVPR2021/papers/Chen_Semi-Supervised_Semantic_Segmentation_With_Cross_Pseudo_Supervision_CVPR_2021_paper.pdf
+    type: paper
+    name: "Cross Pseudo Supervision for Semi-Supervised Segmentation (CVPR 2021)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://iovs.arvojournals.org/article.aspx?articleid=2789975
+    type: paper
+    name: "Semi-Supervised Learning for IR Retinal Vessel Segmentation (IOVS 2023)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: unavailable  # Cloudflare challenge blocks curl
+
+  - url: https://arxiv.org/abs/2604.02509
+    type: paper
+    name: "DistillGaze: On-Device Eye Tracking by Distilling VFMs (Meta Reality Labs 2026)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2305.14080
+    type: paper
+    name: "Eye-Tracked VR: Comprehensive Survey on Methods and Privacy (IEEE 2025)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  # --- Pass 3 papers ---
+
+  - url: https://arxiv.org/abs/1712.08900
+    type: paper
+    name: "PuRe: Robust pupil detection for real-time pervasive eye tracking"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/1511.06575
+    type: paper
+    name: "ElSe: Ellipse Selection for Robust Pupil Detection in Real-World Environments"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/1405.0006
+    type: paper
+    name: "Pupil: An Open Source Platform for Pervasive Eye Tracking"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2403.15947
+    type: paper
+    name: "Deep Domain Adaptation: A Sim2Real Neural Approach for Eye-Tracking (ETRA 2024)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2201.07367
+    type: paper
+    name: "Real-Time Gaze Tracking with Event-Driven Eye Segmentation"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2210.11637
+    type: paper
+    name: "Slippage-Robust Gaze Tracking for Near-eye Display (2022)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2111.07209
+    type: paper
+    name: "Assessment of Eye Tracking Signal Quality in HoloLens 2"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2106.15828
+    type: paper
+    name: "Semantic Segmentation of Periocular NIR Eye Images Under Degraded Conditions"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2411.08490
+    type: paper
+    name: "Impact of Iris Pigmentation on Performance Bias in Visible Spectrum"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: unavailable  # HTML-only paper, no PDF available
+
+  - url: https://par.nsf.gov/servlets/purl/10232276
+    type: paper
+    name: "Characterizing Performance of DNNs for Eye Tracking Under Degradation (ETRA 2021)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  # ============================================================
+  # DATASETS
+  # ============================================================
 
   - url: http://research.fb.com/programs/openeds/
     type: dataset
     name: OpenEDS (2019)
     description: Facebook Research eye dataset, 12,759 images, 4-class segmentation
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: requires_manual_access
 
   - url: http://research.fb.com/programs/openeds-2020-challenge/
     type: dataset
     name: OpenEDS2020
     description: Eye-image sequences for gaze prediction and segmentation
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: requires_manual_access
 
   - url: https://research.nvidia.com/publication/2019-05_nvgaze-anatomically-informed-dataset
     type: dataset
     name: NVGaze
     description: Anatomically-informed dataset for low-latency near-eye gaze estimation (NVIDIA)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: requires_manual_access
 
   - url: https://www.cl.cam.ac.uk/research/rainbow/projects/syntheseyes/
     type: dataset
     name: SynthesEyes
     description: Photorealistic synthetic eye images for training (Cambridge)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: requires_manual_access
 
   - url: https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/research/gaze-based-human-computer-interaction/labelled-pupils-in-the-wild-lpw
     type: dataset
     name: Labelled Pupils in the Wild (LPW)
     description: 66 high-quality eye region videos from 22 participants at 95 FPS
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: requires_manual_access
 
-  # === Articles / Other Resources ===
+  - url: https://www.cl.cam.ac.uk/research/rainbow/projects/eyerender/
+    type: dataset
+    name: Swirski Synthetic Eye Renders
+    description: Rendering synthetic ground truth images for eye tracker evaluation (Cambridge)
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: requires_manual_access
+
+  # ============================================================
+  # ARTICLES / INDUSTRY / TOOLS
+  # ============================================================
 
   - url: https://docs.cleanlab.ai/stable/tutorials/segmentation.html
     type: article
     name: "cleanlab segmentation tutorial"
     description: Find label errors in semantic segmentation datasets
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://mcml.ai/publications/ghf+23/
     type: article
     name: "How to Overcome Confirmation Bias in Semi-Supervised Learning (MCML)"
     description: Active learning + semi-supervised for segmentation
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://openeyes-workshop.github.io/downloads/openeyes2020_yiru_shen_domain_adaptation_for_eye_segmentation.pdf
     type: paper
     name: "Domain Adaptation for Eye Segmentation (OpenEyes 2020 workshop)"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: http://dx.doi.org/10.26153/tsw/46018
     type: paper
     name: "Cross-domain adaptation and geometric data synthesis for near-eye segmentation"
     description: UT Austin - combining annotated synthetic data with real unlabeled data
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: unavailable  # DOI redirects to UT repository landing page
 
   - url: https://repositum.tuwien.at/bitstream/20.500.12708/188367/
     type: paper
     name: "Evaluating two-stage gaze estimation using eye image segmentation (TU Wien)"
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: unavailable  # repository landing page, requires manual navigation
 
   - url: https://www.mmlab-ntu.com/project/edgesam
     type: article
     name: "EdgeSAM project page"
     description: On-device SAM distillation project page (NTU MMLab)
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: downloaded
 
   - url: https://huggingface.co/Matthijs/deeplabv3-mobilevit-small
     type: article
     name: "DeepLabV3 MobileViT-Small (HuggingFace)"
     description: Pretrained MobileViT segmentation model
     discovered: 2026-05-04
-    source: perplexity-2026-05-04.md
-    status: pending
+    source: perplexity-2026-05-04-pass1.md
+    status: skipped  # model weights, download on demand via HF hub
+
+  - url: https://store.bigscreenvr.com/blogs/beyond/dynamic-foveated-rendering-with-bigscreen-beyond-2e
+    type: article
+    name: "Bigscreen Beyond 2e: Dynamic Foveated Rendering Technical Report"
+    description: Built-in eye tracking for DFR, confirms 90fps/11ms budget
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://securecdn.oculus.com/sr/meta-quest-pro-eye-tracking-white-paper
+    type: article
+    name: "Building Eye Tracking on Meta Quest Pro Responsibly (Meta whitepaper)"
+    description: On-device inference constraint, privacy architecture
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://support.apple.com/en-us/118483
+    type: article
+    name: "Apple Vision Pro Optic ID - About Advanced Technology"
+    description: Spatiotemporally modulated NIR iris recognition on Secure Enclave
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://www.apple.com/privacy/docs/Apple_Vision_Pro_Privacy_Overview.pdf
+    type: article
+    name: "Apple Vision Pro Privacy Overview (PDF)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://developer.tobii.com/xr/ocumen/overview/
+    type: article
+    name: "Tobii Ocumen SDK Overview"
+    description: Advanced XR eye tracking SDK - raw signals, gaze ray, pupil diameter
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://docs.pupil-labs.com/neon/open-source-libs/
+    type: article
+    name: "Pupil Labs Neon Open-Source Libraries"
+    description: Open-source eye tracker interface libraries
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  - url: https://docs.pupil-labs.com/alpha-lab/dynamic-aoi-sam2/
+    type: article
+    name: "Pupil Labs SAM2 Dynamic AOI Tutorial"
+    description: Integrating SAM2 with Neon for dynamic AOI segmentation
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass2.md
+    status: downloaded
+
+  # --- Pass 3 classical/foundational PDFs ---
+
+  - url: http://andrewd.ces.clemson.edu/research/vislab/docs/etra08-short.pdf
+    type: paper
+    name: "Starburst: Limbus/Pupil Switching for Wearable Eye Tracking (Li & Parkhurst 2005)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://www.cl.cam.ac.uk/research/rainbow/projects/pupiltracking/files/Swirski,%20Bulling,%20Dodgson%20-%202012%20-%20Robust%20real-time%20pupil%20tracking%20in%20highly%20off-axis%20images.pdf
+    type: paper
+    name: "Robust real-time pupil tracking in highly off-axis images (Swirski 2012)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://www.hci.uni-tuebingen.de/assets/pdf/publications/WTCKWE092015.pdf
+    type: paper
+    name: "ExCuSe: Robust Pupil Detection in Real-World Scenarios (Fuhl 2015)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: unavailable  # Tubingen server blocks direct download
+
+  - url: https://www.hci.uni-tuebingen.de/assets/pdf/publications/TWE052018.pdf
+    type: paper
+    name: "PuRe: Robust pupil detection for real-time pervasive eye tracking (2018)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: unavailable  # Tubingen server blocks direct download
+
+  - url: https://www.hci.uni-tuebingen.de/assets/pdf/publications/TWE062018.pdf
+    type: paper
+    name: "PuReST: Robust Pupil Tracking for Real-Time Pervasive Eye Tracking (2018)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: unavailable  # Tubingen server blocks direct download
+
+  # --- Pass 3 theses ---
+
+  - url: https://repository.rit.edu/theses/11102/
+    type: paper
+    name: "Deep Into the Eyes: Applying ML to Improve Eye-Tracking (RIT thesis)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://repository.rit.edu/theses/12519/
+    type: paper
+    name: "Using Deep Learning to Increase Eye-Tracking Robustness (RIT thesis)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  # --- Pass 3 bias/robustness ---
+
+  - url: https://ieeexplore.ieee.org/iel7/10206/9970396/09926136.pdf
+    type: paper
+    name: "Exploring Bias in Sclera Segmentation Models: A Group Evaluation (IEEE 2022)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: unavailable  # IEEE paywall blocks direct download
+
+  - url: https://lmi.fe.uni-lj.si/wp-content/uploads/2023/09/CameraReady-233.pdf
+    type: paper
+    name: "SSRBC 2023 - Sclera Segmentation Benchmarking Competition"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7141060/
+    type: paper
+    name: "Controlling the influence of dirt and dust on pupil detection (Tubingen)"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  - url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7280360/
+    type: paper
+    name: "Impact of slippage on data quality of head-worn eye trackers"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded
+
+  # --- Pass 3 commercial HMD ET ---
+
+  - url: https://www.tobii.com/products/integration/xr-headsets/device-integrations/htc-vive-pro-eye
+    type: article
+    name: "HTC Vive Pro Eye with Tobii integration"
+    discovered: 2026-05-05
+    source: perplexity-2026-05-04-pass3.md
+    status: downloaded

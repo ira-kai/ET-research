@@ -1,0 +1,238 @@
+# tags.yaml — Inverted index: tag → entries
+# Use this for fast lookup: "what papers/repos cover topic X?"
+
+tags:
+
+  # === Architecture & Model Design ===
+
+  architecture:
+    - papers/ritnet.pdf
+    - papers/segformer.pdf
+    - papers/topformer.pdf
+    - papers/efficientformer.pdf
+    - papers/mobilevit.pdf
+    - papers/eyeseg-uncertainty.pdf
+    - papers/ellseg.pdf
+    - papers/condseg.pdf
+    - papers/edgesam.pdf
+    - repos/ritnet
+    - repos/SegFormer
+    - repos/TopFormer
+    - repos/EfficientFormer
+    - repos/ml-cvnets
+    - repos/EyeSeg
+    - repos/EllSeg
+
+  transformer:
+    - papers/segformer.pdf
+    - papers/topformer.pdf
+    - papers/efficientformer.pdf
+    - papers/mobilevit.pdf
+    - repos/SegFormer
+    - repos/TopFormer
+    - repos/EfficientFormer
+    - repos/ml-cvnets
+
+  cnn:
+    - papers/ritnet.pdf
+    - papers/topformer.pdf
+    - papers/eyeseg-uncertainty.pdf
+    - papers/ellseg.pdf
+    - repos/ritnet
+    - repos/EllSeg
+
+  unet:
+    - papers/ritnet.pdf
+    - repos/ritnet
+
+  mobile:
+    - papers/topformer.pdf
+    - papers/efficientformer.pdf
+    - papers/mobilevit.pdf
+    - repos/TopFormer
+    - repos/EfficientFormer
+    - repos/ml-cvnets
+
+  # === Training Paradigms ===
+
+  semi-supervised:
+    - papers/csl-semi-supervised.pdf
+    - papers/act-pseudo-labels.pdf
+    - papers/semi-supervised-active-learning.pdf
+    - papers/ssl-eye-segmentation.pdf
+    - papers/sclera-ssl.pdf
+    - papers/cross-pseudo-supervision.pdf
+    - papers/unsupervised-eye-segmentation.pdf
+    - repos/CSL
+
+  pseudo-labels:
+    - papers/csl-semi-supervised.pdf
+    - papers/act-pseudo-labels.pdf
+    - papers/cross-pseudo-supervision.pdf
+    - papers/unsupervised-eye-segmentation.pdf
+
+  active-learning:
+    - papers/semi-supervised-active-learning.pdf
+
+  distillation:
+    - papers/distillgaze.pdf
+    - papers/edgesam.pdf
+
+  foundation-model:
+    - papers/sam-zero-shot-eye.pdf
+    - papers/unsupervised-eye-segmentation.pdf
+    - papers/distillgaze.pdf
+    - papers/edgesam.pdf
+
+  sam:
+    - papers/sam-zero-shot-eye.pdf
+    - papers/unsupervised-eye-segmentation.pdf
+    - papers/edgesam.pdf
+    - articles/pupil-labs-sam2-tutorial.html
+
+  domain-adaptation:
+    - papers/sim2real-eye-tracking.pdf
+    - papers/domain-adaptation-eye-seg.pdf
+    - repos/domain-adaptation-eye-tracking
+
+  # === Eye-Tracking Specific ===
+
+  eye-specific:
+    - papers/ritnet.pdf
+    - papers/eyeseg-uncertainty.pdf
+    - papers/ellseg.pdf
+    - papers/condseg.pdf
+    - papers/ssl-eye-segmentation.pdf
+    - papers/sclera-ssl.pdf
+    - papers/sam-zero-shot-eye.pdf
+    - papers/unsupervised-eye-segmentation.pdf
+    - papers/openeds.pdf
+    - papers/openeds2020.pdf
+    - papers/gazeshift-vrgaze.pdf
+    - papers/distillgaze.pdf
+    - repos/ritnet
+    - repos/EyeSeg
+    - repos/EllSeg
+    - repos/DeepVOG
+    - repos/gazeshift
+
+  pupil-detection:
+    - papers/starburst.pdf
+    - papers/swirski-pupil-tracking.pdf
+    - papers/pure-pupil-detection.pdf
+    - papers/else-ellipse-pupil.pdf
+    - repos/DeepVOG
+
+  ellipse-fitting:
+    - papers/ellseg.pdf
+    - papers/condseg.pdf
+    - papers/swirski-pupil-tracking.pdf
+    - papers/else-ellipse-pupil.pdf
+    - repos/EllSeg
+
+  sclera:
+    - papers/sclera-ssl.pdf
+    - papers/ssrbc-2023.pdf
+
+  gaze:
+    - papers/ellseg.pdf
+    - papers/gazeshift-vrgaze.pdf
+    - papers/distillgaze.pdf
+    - papers/slippage-robust-gaze.pdf
+    - repos/DeepVOG
+    - repos/gazeshift
+
+  uncertainty:
+    - papers/eyeseg-uncertainty.pdf
+    - repos/EyeSeg
+
+  # === Deployment & Hardware ===
+
+  edge-deployment:
+    - papers/topformer.pdf
+    - papers/efficientformer.pdf
+    - papers/edgesam.pdf
+    - papers/ptq-segmentation.pdf
+    - papers/distillgaze.pdf
+    - papers/event-driven-eye-seg.pdf
+
+  quantization:
+    - papers/ptq-segmentation.pdf
+
+  real-time:
+    - papers/ritnet.pdf
+    - papers/topformer.pdf
+    - papers/pure-pupil-detection.pdf
+    - papers/event-driven-eye-seg.pdf
+
+  # === Data ===
+
+  dataset:
+    - papers/openeds.pdf
+    - papers/openeds2020.pdf
+    - papers/rit-eyes.pdf
+    - papers/gazeshift-vrgaze.pdf
+    - repos/gazeshift
+
+  synthetic-data:
+    - papers/rit-eyes.pdf
+    - papers/sim2real-eye-tracking.pdf
+    - papers/domain-adaptation-eye-seg.pdf
+    - repos/Seg2Eye
+    - repos/domain-adaptation-eye-tracking
+
+  pretraining:
+    - papers/gazeshift-vrgaze.pdf
+
+  # === Robustness & Evaluation ===
+
+  robustness:
+    - papers/meta-quest-pro-signal-quality.pdf
+    - papers/hololens2-signal-quality.pdf
+    - papers/slippage-robust-gaze.pdf
+    - papers/dnn-eye-tracking-degradation.pdf
+    - papers/periocular-nir-segmentation.pdf
+
+  slippage:
+    - papers/slippage-robust-gaze.pdf
+    - papers/hololens2-signal-quality.pdf
+
+  degradation:
+    - papers/dnn-eye-tracking-degradation.pdf
+    - papers/periocular-nir-segmentation.pdf
+
+  bias:
+    - papers/ssrbc-2023.pdf
+
+  evaluation:
+    - papers/boundary-iou.pdf
+    - papers/meta-quest-pro-signal-quality.pdf
+    - papers/hololens2-signal-quality.pdf
+    - papers/ssrbc-2023.pdf
+
+  # === Tools & Platforms ===
+
+  label-quality:
+    - repos/cleanlab
+    - articles/cleanlab-segmentation-tutorial.html
+
+  open-source:
+    - papers/pupil-labs-platform.pdf
+    - repos/cleanlab
+    - articles/pupil-labs-open-source.html
+
+  augmentation:
+    - papers/ssl-eye-segmentation.pdf
+    - papers/dnn-eye-tracking-degradation.pdf
+    - repos/Seg2Eye
+
+  # === Industry / Commercial ===
+
+  commercial-hmd:
+    - papers/meta-quest-pro-signal-quality.pdf
+    - papers/hololens2-signal-quality.pdf
+    - articles/bigscreen-2e-dfr.html
+    - articles/meta-quest-pro-et-whitepaper.pdf
+    - articles/apple-optic-id.html
+    - articles/tobii-ocumen-overview.html
+    - articles/tobii-vive-pro-eye.html

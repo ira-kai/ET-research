@@ -1,0 +1,126 @@
+# master.yaml — Thematic clusters of prior art for SegUNET
+# Each cluster maps to a research question from the project brief.
+# Use this file for top-down navigation into specific index files.
+
+clusters:
+
+  - id: architectures
+    title: "Segmentation Architectures for Near-Eye Parsing"
+    research_question: "Q1 — What model architecture achieves 7-class eye segmentation at <11ms?"
+    priority: critical
+    index_file: papers-architectures.yaml
+    key_entries:
+      - ritnet          # Direct competitor, sub-1MB UNet+DenseNet
+      - segformer       # SegFormer-B0, potential encoder swap
+      - topformer       # Token pyramid for mobile
+      - efficientformer # ViT at MobileNet speed
+      - mobilevit       # Apple's mobile ViT
+      - eyeseg          # Uncertainty-aware (IJCAI 2025)
+      - edgesam         # SAM distillation for edge
+      - ellseg          # Ellipse-based pupil/iris
+      - condseg         # Conditioned segmentation for ellipse params
+    themes:
+      - encoder_swap: "Replace EfficientNet-B0 with lighter transformer encoder"
+      - dense_skip: "Dense skip connections for boundary quality"
+      - uncertainty: "Per-pixel uncertainty scores for review gating"
+      - ellipse_prior: "Geometric priors for pupil/iris shape"
+
+  - id: training_efficiency
+    title: "Semi-Supervised Learning & Label Efficiency"
+    research_question: "Q4 — How to maximize model quality with ~1500 labeled frames?"
+    priority: critical
+    index_file: papers-training.yaml
+    key_entries:
+      - csl-semi-supervised    # Confidence separable learning
+      - act-pseudo-labels      # Adaptive confidence thresholding
+      - cross-pseudo-supervision # CPS dual-network mutual supervision
+      - ssl-eye-segmentation   # Eye-specific SSL (ETRA 2021)
+      - sclera-ssl             # Sclera-specific SSL
+      - sam-zero-shot-eye      # SAM as labeling oracle for pupil/iris
+      - unsupervised-eye-seg   # SAM auto-prompting for pseudo-labels
+      - distillgaze            # VFM adapt-then-distill
+    themes:
+      - pseudo_labels: "Generate training signal from unlabeled frames"
+      - cross_supervision: "Dual-network mutual pseudo-label generation"
+      - foundation_model: "SAM/DINOv2 as feature backbone or auto-annotator"
+      - eye_specific_ssl: "Radial symmetry augmentation for eye anatomy"
+
+  - id: datasets
+    title: "Datasets & Synthetic Data"
+    research_question: "Q2 — What data sources enable pretraining and augmentation?"
+    priority: high
+    index_file: papers-datasets-robustness.yaml
+    key_entries:
+      - openeds            # 12,759 images, 4-class, Facebook Research
+      - openeds2020        # Sequences for temporal models
+      - rit-eyes           # Synthetic eye rendering (Blender)
+      - gazeshift-vrgaze   # 2.1M off-axis IR images (CVPR 2026)
+      - starburst          # Classical pupil detection baseline
+      - swirski            # Off-axis pupil tracking
+    themes:
+      - pretraining: "VRGaze 2.1M images as pretraining corpus"
+      - synthetic: "RIT-Eyes/SynthesEyes for augmentation"
+      - domain_gap: "Off-axis vs fronto-parallel camera geometry"
+
+  - id: robustness
+    title: "Robustness, Failure Modes & Bias"
+    research_question: "Q3/Q7 — How to handle slippage, dirt, demographics, degradation?"
+    priority: high
+    index_file: papers-datasets-robustness.yaml
+    key_entries:
+      - slippage-robust-gaze
+      - dnn-eye-tracking-degradation
+      - hololens2-signal-quality
+      - meta-quest-pro-signal-quality
+      - periocular-nir-segmentation
+      - ssrbc-2023          # Sclera segmentation bias benchmark
+    themes:
+      - slippage: "HMD movement during use degrades tracking"
+      - contamination: "Dust/dirt on lens affects edge detection"
+      - demographics: "Iris pigmentation and ethnicity bias"
+      - illumination: "Non-uniform IR, Fresnel reflections"
+
+  - id: deployment
+    title: "Real-Time Inference & On-Device Deployment"
+    research_question: "Q6 — How to achieve <11ms at 90fps on Bigscreen Beyond?"
+    priority: critical
+    index_file: papers-architectures.yaml
+    key_entries:
+      - distillgaze        # VFM → 256K param student
+      - edgesam            # SAM → CNN distillation
+      - ptq-segmentation   # Post-training quantization
+      - efficientformer    # MobileNet-speed ViT
+      - topformer          # 1.4ms on iPhone 12
+    themes:
+      - distillation: "Large teacher → tiny student model"
+      - quantization: "FP32 → INT8/FP8 for TensorRT"
+      - architecture_search: "Sub-5ms architectures at 256x256"
+
+  - id: gaze_pipeline
+    title: "Segmentation-to-Gaze Pipeline"
+    research_question: "Q5 — How does seg quality affect downstream gaze accuracy?"
+    priority: medium
+    index_file: papers-datasets-robustness.yaml
+    key_entries:
+      - ellseg
+      - condseg
+      - gazeshift-vrgaze
+      - event-driven-eye-seg
+      - pure-pupil-detection
+      - pupil-labs-platform
+    themes:
+      - ellipse_fit: "Segmentation mask → ellipse → gaze vector"
+      - end_to_end: "Joint segmentation + gaze estimation"
+      - temporal: "Frame-to-frame consistency for smooth gaze"
+
+  - id: tools_quality
+    title: "Label Quality & Data Tools"
+    research_question: "How to detect and fix annotation errors?"
+    priority: medium
+    index_file: repos.yaml
+    key_entries:
+      - cleanlab
+      - domain-adaptation-eye-tracking
+    themes:
+      - error_detection: "Automated mislabel identification"
+      - domain_shift: "Sim-to-real transfer validation"
