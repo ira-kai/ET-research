@@ -1,0 +1,316 @@
+# downloads.yaml — Prior art download tracker for ET-research
+# Format: list of entries keyed by canonical URL. Idempotent upsert: match on `url` field.
+# status: pending | downloaded | unavailable | skipped
+# type: paper | repo | dataset | article | tool
+# discovered: ISO date when first added
+
+entries:
+
+  # === Repos ===
+
+  - url: https://bitbucket.org/eye-ush/ritnet/
+    type: repo
+    name: RITnet
+    description: Real-time eye segmentation (U-Net + DenseNet, sub-1MB, 4-class)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://github.com/NVlabs/SegFormer
+    type: repo
+    name: SegFormer
+    description: Hierarchical Transformer encoder for semantic segmentation (NeurIPS 2021)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://github.com/hustvl/TopFormer
+    type: repo
+    name: TopFormer
+    description: Token Pyramid Transformer for mobile semantic segmentation (CVPR 2022)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://github.com/snap-research/EfficientFormer
+    type: repo
+    name: EfficientFormer
+    description: Vision Transformers at MobileNet speed (NeurIPS 2022)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://github.com/apple/ml-cvnets
+    type: repo
+    name: MobileViT (ml-cvnets)
+    description: Light-weight general-purpose vision transformer for mobile
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://github.com/cvlab-stonybrook/few-shot-scanpath
+    type: repo
+    name: Few-Shot Scanpath Prediction
+    description: Few-shot personalized scanpath prediction (CVPR 2025)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://github.com/PanLiuCSU/CSL
+    type: repo
+    name: CSL (Confidence Separable Learning)
+    description: Semi-supervised semantic segmentation pseudo-label selection (ICCV 2025)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://github.com/cleanlab/cleanlab
+    type: repo
+    name: cleanlab
+    description: Find label errors in segmentation datasets automatically
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://github.com/RSKothari/EllSeg
+    type: repo
+    name: EllSeg
+    description: Ellipse segmentation framework for robust gaze tracking
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://github.com/pydsgz/DeepVOG
+    type: repo
+    name: DeepVOG
+    description: Open-source pupil segmentation and gaze estimation (FCN-based)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://github.com/mcbuehler/Seg2Eye
+    type: repo
+    name: Seg2Eye
+    description: Content-consistent generation of realistic eyes with style (NVIDIA)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  # === Papers (arXiv) ===
+
+  - url: https://arxiv.org/abs/1910.00694
+    type: paper
+    name: "RITnet: Real-time Semantic Segmentation of the Eye for Gaze Tracking"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2105.15203
+    type: paper
+    name: "SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2204.05525
+    type: paper
+    name: "TopFormer: Token Pyramid Transformer for Mobile Semantic Segmentation"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2206.01191
+    type: paper
+    name: "EfficientFormer: Vision Transformers at MobileNet Speed"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2110.02178
+    type: paper
+    name: "MobileViT: Light-weight, General-purpose Vision Transformer"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/1905.03702
+    type: paper
+    name: "OpenEDS: Open Eye Dataset"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2005.03876
+    type: paper
+    name: "OpenEDS2020: Open Eyes Dataset"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2006.03642
+    type: paper
+    name: "RIT-Eyes: Rendering of near-eye images for eye-tracking applications"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2504.05499
+    type: paper
+    name: "Few-shot Personalized Scanpath Prediction"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2505.07691
+    type: paper
+    name: "Feedback-Driven Pseudo-Label Reliability Assessment (ACT)"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2509.16704
+    type: paper
+    name: "CSL: Revisiting Pseudo-Label Selection in Semi-supervised Semantic Segmentation"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2501.19227
+    type: paper
+    name: "Integrating Semi-Supervised and Active Learning for Semantic Segmentation"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2007.09600
+    type: paper
+    name: "EllSeg: An Ellipse Segmentation Framework for Robust Gaze Tracking"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2408.17231
+    type: paper
+    name: "CondSeg: Ellipse Estimation of Pupil and Iris via Conditioned Segmentation"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2501.17343
+    type: paper
+    name: "Real Post-Training Quantization (PTQ) framework for segmentation"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2312.06660
+    type: paper
+    name: "EdgeSAM: Prompt-In-the-Loop Distillation for On-Device SAM"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://arxiv.org/abs/2103.16562
+    type: paper
+    name: "Boundary IoU: Improving Object-Centric Image Segmentation Evaluation"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  # === Datasets ===
+
+  - url: http://research.fb.com/programs/openeds/
+    type: dataset
+    name: OpenEDS (2019)
+    description: Facebook Research eye dataset, 12,759 images, 4-class segmentation
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: http://research.fb.com/programs/openeds-2020-challenge/
+    type: dataset
+    name: OpenEDS2020
+    description: Eye-image sequences for gaze prediction and segmentation
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://research.nvidia.com/publication/2019-05_nvgaze-anatomically-informed-dataset
+    type: dataset
+    name: NVGaze
+    description: Anatomically-informed dataset for low-latency near-eye gaze estimation (NVIDIA)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://www.cl.cam.ac.uk/research/rainbow/projects/syntheseyes/
+    type: dataset
+    name: SynthesEyes
+    description: Photorealistic synthetic eye images for training (Cambridge)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://www.mpi-inf.mpg.de/departments/computer-vision-and-machine-learning/research/gaze-based-human-computer-interaction/labelled-pupils-in-the-wild-lpw
+    type: dataset
+    name: Labelled Pupils in the Wild (LPW)
+    description: 66 high-quality eye region videos from 22 participants at 95 FPS
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  # === Articles / Other Resources ===
+
+  - url: https://docs.cleanlab.ai/stable/tutorials/segmentation.html
+    type: article
+    name: "cleanlab segmentation tutorial"
+    description: Find label errors in semantic segmentation datasets
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://mcml.ai/publications/ghf+23/
+    type: article
+    name: "How to Overcome Confirmation Bias in Semi-Supervised Learning (MCML)"
+    description: Active learning + semi-supervised for segmentation
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://openeyes-workshop.github.io/downloads/openeyes2020_yiru_shen_domain_adaptation_for_eye_segmentation.pdf
+    type: paper
+    name: "Domain Adaptation for Eye Segmentation (OpenEyes 2020 workshop)"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: http://dx.doi.org/10.26153/tsw/46018
+    type: paper
+    name: "Cross-domain adaptation and geometric data synthesis for near-eye segmentation"
+    description: UT Austin - combining annotated synthetic data with real unlabeled data
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://repositum.tuwien.at/bitstream/20.500.12708/188367/
+    type: paper
+    name: "Evaluating two-stage gaze estimation using eye image segmentation (TU Wien)"
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://www.mmlab-ntu.com/project/edgesam
+    type: article
+    name: "EdgeSAM project page"
+    description: On-device SAM distillation project page (NTU MMLab)
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
+
+  - url: https://huggingface.co/Matthijs/deeplabv3-mobilevit-small
+    type: article
+    name: "DeepLabV3 MobileViT-Small (HuggingFace)"
+    description: Pretrained MobileViT segmentation model
+    discovered: 2026-05-04
+    source: perplexity-2026-05-04.md
+    status: pending
