@@ -1,0 +1,286 @@
+# papers-boundary.yaml — Boundary quality, thin-structure losses, post-processing, and CPS fixes
+# Source: perplexity-2026-05-18-pass4.md (boundary quality deep dive)
+# Covers: boundary-aware losses, post-processing refinement, CPS boundary degradation fixes, active learning
+
+entries:
+
+  # === THIN STRUCTURE & BOUNDARY LOSSES ===
+
+  - file: papers/cldice-cvpr-2021.pdf
+    title: "clDice — A Novel Topology-Preserving Loss Function for Tubular Structure Segmentation"
+    authors: Shit, Paetzold et al.
+    year: 2021
+    venue: CVPR 2021
+    contribution: "Topology-preserving loss computed on intersection of masks and morphological skeletons; guarantees homotopy equivalence"
+    techniques:
+      - Differentiable soft skeletonization via iterative min/max pooling
+      - Skeleton-intersection Dice metric
+      - Topology preservation guarantee (binary 2D/3D)
+    limitations:
+      - Binary only — must apply per-class separately
+      - ~5x GPU cost vs baseline cross-entropy
+    segunet_takeaway: "Apply as auxiliary loss on UpperLid binary mask to prevent topological holes (disconnected lid fragments). Per-class only — cannot handle medial canthus junction directly."
+    tags: [loss-function, boundary, topology, thin-structure]
+
+  - file: papers/skeleton-recall-loss-eccv-2024.pdf
+    title: "Skeleton Recall Loss for Connectivity Conserving and Resource Efficient Segmentation of Thin Tubular Structures"
+    authors: Kniep et al.
+    year: 2024
+    venue: ECCV 2024
+    contribution: "First multi-class thin structure loss; precomputes skeletons on CPU, computes soft recall on GPU — 90% cheaper than clDice"
+    techniques:
+      - CPU-side skeleton precomputation during data loading
+      - Soft recall of predictions on precomputed tubed skeletons
+      - Native multi-class support (no per-class decomposition needed)
+    metrics:
+      cost: "~1.1x baseline (vs ~5x for clDice)"
+      result: "Superior to clDice on 5 public datasets"
+    segunet_takeaway: "THE correct topological loss for SegUNET — multi-class means it can simultaneously supervise UpperLid, LowerLid, iris limbus, and BrightSpot skeletons in one loss term."
+    tags: [loss-function, boundary, topology, thin-structure, multi-class, efficient]
+
+  - file: papers/clce-miccai-2024.pdf
+    title: "Centerline-Cross Entropy Loss for Vessel-Like Structure Segmentation"
+    authors: Bourque et al.
+    year: 2024
+    venue: MICCAI 2024
+    contribution: "Reformulates clDice using cross-entropy instead of Dice — inherits CE robustness while preserving topological focus"
+    techniques:
+      - Cross-entropy on centerline skeleton pixels
+      - More numerically stable than soft-clDice for small regions
+      - Robust to noisy annotations
+    segunet_takeaway: "Better than clDice for BrightSpot specifically — small near-circular class where Dice loss is unstable due to tiny region size."
+    tags: [loss-function, boundary, topology, thin-structure, robust]
+
+  - file: papers/focussdf-2025.pdf
+    title: "FocusSDF: Signed Distance Function Boundary Weighting for Segmentation"
+    authors: (Multiple authors)
+    year: 2025
+    venue: arXiv
+    contribution: "SDF-based loss that adaptively assigns higher weights to boundary-proximal pixels via exponential decay"
+    techniques:
+      - Joint prediction of binary masks and signed distance fields
+      - Exponential decay weighting from boundary (smooth, not hard threshold)
+      - Complementary region-level + boundary-level supervision
+    metrics:
+      result: "Consistently improves boundary accuracy vs MedSAM and 4 other SOTA models"
+    segunet_takeaway: "Solves the gradient conflict that made hard boundary upweighting fail — SDF decay provides smooth boundary emphasis compatible with Dice+Focal."
+    tags: [loss-function, boundary, sdf, adaptive-weighting]
+
+  - file: papers/contextloss-icip-2025.pdf
+    title: "ContextLoss: Topology-Aware Error Context for Thin Structure Segmentation"
+    authors: (Multiple authors)
+    year: 2025
+    venue: ICIP 2025
+    contribution: "Extends clDice by considering spatial context of topological errors, not just their existence"
+    techniques:
+      - Context-aware topological error detection
+      - Spatial neighborhood analysis of skeleton breaks
+      - Distinguishes isolated vs clustered topological failures
+    segunet_takeaway: "For medial canthus junction where three-class topological errors cluster — context-awareness detects that the breaks are systematic, not random."
+    tags: [loss-function, boundary, topology, context-aware]
+
+  # === POST-PROCESSING & BOUNDARY REFINEMENT ===
+
+  - file: papers/segfix-eccv-2020.pdf
+    title: "SegFix: Model-Agnostic Post-Processing for Semantic Segmentation"
+    authors: Yuan et al.
+    year: 2020
+    venue: ECCV 2020
+    contribution: "Replaces unreliable boundary pixel labels with corresponding interior pixel labels via learned direction map"
+    techniques:
+      - Learned offset field pointing boundary→interior
+      - Model-agnostic (works on any segmentation output)
+      - Single shallow HRNet branch for direction map
+    metrics:
+      result: "Consistent boundary error reduction on Cityscapes, ADE20K, GTA5"
+      latency: "~2-4ms at 320x240 on XR2-class hardware"
+    limitations:
+      - At multi-class junctions, propagates dominant adjacent class (sclera) — apply ONLY to non-junction boundary pixels
+    segunet_takeaway: "Lightweight plug-in post-processing within 11ms budget. Apply to single-class boundaries only; exclude medial canthus junction pixels."
+    tags: [post-processing, boundary, model-agnostic, deployment]
+
+  - file: papers/dense-crf-nips-2011.pdf
+    title: "Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials"
+    authors: "Kr\xE4henb\xFChl, Koltun"
+    year: 2011
+    venue: NeurIPS 2011
+    contribution: "Fast approximate inference for dense CRFs via permutohedral lattice — the canonical label-map sharpening method"
+    techniques:
+      - Fully connected CRF with Gaussian edge potentials
+      - Permutohedral lattice approximate inference
+      - Linear scaling with filter size, GPU-parallelizable
+    metrics:
+      latency: "~3-6ms at 320x240 on embedded GPU (5-10 iterations)"
+    segunet_takeaway: "Use as region-smoothing complement to SegFix — CRF on interior regions, SegFix on boundary pixels. Fits 11ms budget at eye-ROI resolution."
+    tags: [post-processing, crf, inference, deployment]
+
+  - file: papers/oasis-iccv-2025.pdf
+    title: "OASIS: Lightweight Structure Refinement for Video Object Segmentation"
+    authors: (Multiple authors)
+    year: 2025
+    venue: ICCV 2025
+    contribution: "Fuses Canny edge priors with decoder features for zero-cost boundary sharpening"
+    techniques:
+      - Pre-computed Canny edges (no neural network call)
+      - Elementwise multiply fusion with decoder output features
+      - Lightweight convolutional refinement block
+    metrics:
+      latency: "<0.5ms additional"
+    segunet_takeaway: "Cheapest possible boundary sharpener — Canny edge prior as attention gate on UpperLid decoder head. No trainable params at inference."
+    tags: [post-processing, boundary, edge-prior, lightweight, deployment]
+
+  - file: papers/bsanet-iccv-2019.pdf
+    title: "BSANet: Boundary-Semantic Awareness for Multi-Class Part Parsing"
+    authors: Zhao et al.
+    year: 2019
+    venue: ICCV 2019
+    contribution: "Sequential boundary-then-semantic processing: BASS localizes boundaries, SACS disambiguates which class"
+    techniques:
+      - "Boundary-Aware Spatial Selection (BASS): multi-scale boundary attention"
+      - "Semantic-Aware Channel Selection (SACS): class-relevant channel enhancement"
+      - Coarse-to-fine boundary refinement across feature scales
+    segunet_takeaway: "Sequential design addresses UpperLid/BrightSpot confusion — model knows there IS a boundary but misassigns class. BASS can be inserted as decoder feature modulation layer."
+    tags: [architecture, boundary, multi-class, attention, part-parsing]
+
+  - file: papers/mpdc-scientific-reports-2025.pdf
+    title: "ICIP 2025: Multi-Class Part Parsing Based on Multi-Class Boundaries"
+    authors: (Multiple authors)
+    year: 2025
+    venue: ICIP 2025
+    contribution: "Multi-class boundary maps that distinguish WHICH PAIR of classes each boundary separates"
+    techniques:
+      - Multi-class boundary prediction (not binary edges)
+      - Class-pair-specific boundary labels
+      - Weighted multi-label cross-entropy for boundary balance
+      - Boundary maps as attention gates on segmentation decoder
+    segunet_takeaway: "Medial canthus has 3 simultaneous boundaries (UpperLid/Sclera, Sclera/Iris, UpperLid/Iris). Multi-class boundary maps represent all three — standard binary edge maps cannot."
+    tags: [architecture, boundary, multi-class, junction, attention]
+
+  # === CPS BOUNDARY DEGRADATION FIXES ===
+
+  - file: papers/boundmatch-ieee-access-2025.pdf
+    title: "BoundMatch: Boundary Consistency Regularized Multi-Task Learning for Semi-Supervised Segmentation"
+    authors: (Multiple authors)
+    year: 2025
+    venue: IEEE Access 2025
+    contribution: "Retrofits boundary consistency into teacher-student SSL — enforces consistency on BOTH segmentation masks AND semantic boundary maps"
+    techniques:
+      - "Boundary-Semantic Fusion (BSF): injects boundary cues into seg decoder"
+      - "Spatial Gradient Fusion (SGF): refines boundary predictions from mask gradients"
+      - Multi-class semantic boundary maps (class-pair specific)
+      - Plug-in to any teacher-student framework
+    segunet_takeaway: "HIGHEST PRIORITY CPS fix — directly retrofits onto existing CPS setup. Multi-class boundary maps at medial canthus. Publicly available code."
+    tags: [semi-supervised, boundary, cps-fix, teacher-student, multi-class]
+
+  - file: papers/cw-bass-ijcnn-2025.pdf
+    title: "CW-BASS: Confidence-Weighted Boundary-Aware Semi-Supervised Segmentation"
+    authors: (Multiple authors)
+    year: 2025
+    venue: IJCNN 2025
+    contribution: "Identifies boundary blur as distinct CPS failure mode; Sobel-filtered pseudo-labels as edge supervision with confidence weighting"
+    techniques:
+      - Confidence-weighted loss (downweights uncertain boundary pixels)
+      - Dynamic per-epoch threshold adaptation
+      - Confidence decay for stabilization
+      - Sobel boundary detection (differentiable, unlike Canny)
+    metrics:
+      boundary_gain: "+6.36% mIoU from boundary-aware loss alone (ablation)"
+      result: "75.81% mIoU on Cityscapes with 1/8 labels, beats fully supervised"
+    segunet_takeaway: "Sobel boundary supervision + confidence weighting is a direct CPS training upgrade. The +6.36% ablation gain from boundary loss alone is the largest single contributor."
+    tags: [semi-supervised, boundary, cps-fix, confidence-weighting, sobel]
+
+  - file: papers/mpdc-scientific-reports-2025.pdf
+    title: "MPDC: Multi-Perspective Dynamic Consistency for Semi-Supervised Segmentation"
+    authors: (Multiple authors)
+    year: 2025
+    venue: Pattern Recognition 2025
+    contribution: "Adds third fused perspective to CPS to break 'model cognitive bias' — reduces mutual reinforcement of wrong boundaries"
+    techniques:
+      - Perspective Fusion Module (PFM) for third-view generation
+      - Three-branch cross-pseudo supervision
+      - Feature-augmented fusion perspective
+    metrics:
+      boundary: "0.47 improvement in 95th-percentile Hausdorff Distance on ACDC (10% labels)"
+    segunet_takeaway: "Replace 2-network CPS with 3-branch MPDC — third branch uses DINOv2 features. Extra training cost but zero inference cost."
+    tags: [semi-supervised, cps-fix, multi-perspective, boundary]
+
+  - file: papers/n-cps-arxiv-2021.pdf
+    title: "n-CPS: Generalising Cross Pseudo Supervision to n Networks"
+    authors: (Multiple authors)
+    year: 2021
+    venue: arXiv
+    contribution: "Extends CPS from 2 to n subnetworks with ensemble averaging; reduces boundary prediction variance"
+    techniques:
+      - n simultaneously trained subnetworks
+      - Ensemble averaging at inference
+      - CutMix augmentation integration
+    metrics:
+      result: "Outperforms 2-network CPS on Pascal VOC and Cityscapes"
+    segunet_takeaway: "Simple extension — n=3 or 4 reduces boundary variance through ensemble. Constraint: proportionally more GPU memory during training."
+    tags: [semi-supervised, cps-fix, ensemble, variance-reduction]
+
+  - file: papers/pseudo-label-survey-2024.pdf
+    title: "A Survey on Pseudo-Label Methods for Semi-Supervised Semantic Segmentation"
+    authors: (Multiple authors)
+    year: 2024
+    venue: arXiv
+    contribution: "Comprehensive survey identifying pseudo-label noise concentration at class boundaries and CPS's 'catastrophic stability' failure mode"
+    techniques:
+      - Taxonomy of pseudo-label generation methods
+      - Analysis of noise propagation in consistency training
+      - Boundary error accumulation analysis
+    segunet_takeaway: "Confirms data coverage is the root cause over loss design — fixing boundary coverage in labeled set propagates more reliably than any loss-reweighting approach."
+    tags: [survey, pseudo-labels, semi-supervised, boundary]
+
+  # === ACTIVE LEARNING FOR BOUNDARIES ===
+
+  - file: papers/sbc-al-miccai-2024.pdf
+    title: "SBC-AL: Structure and Boundary Consistency Active Learning for Medical Image Segmentation"
+    authors: (Multiple authors)
+    year: 2024
+    venue: MICCAI 2024
+    contribution: "Active learning querying strategy that separately scores structure consistency vs boundary consistency"
+    techniques:
+      - Structure Consistency Score (SCS) — interior region agreement across augmented views
+      - Boundary Consistency Score (BCS) — boundary agreement across augmented views
+      - Structure-aware Feature Prediction (SFP) module
+      - Attentional Segmentation Refinement (ASR) module
+    metrics:
+      result: "Outperforms random, uncertainty, core-set, BADGE on two medical datasets"
+    segunet_takeaway: "Apply BCS query criterion to unlabeled pool — frames where CPS networks agree on regions but disagree on boundaries are highest-value annotation candidates."
+    tags: [active-learning, boundary, annotation-budget, structure-consistency]
+
+  # === EYE-SPECIFIC BOUNDARY ARCHITECTURES ===
+
+  - file: papers/atdunet-frontiers-2025.pdf
+    title: "AtDU-Net: Attention-Based Dual U-Net for Palpebral Fissure and Corneal Segmentation"
+    authors: Yu et al.
+    year: 2025
+    venue: Frontiers in Medicine 2025
+    contribution: "Dual-branch U-Net with shared encoder and task-specific decoders for eyelid + corneal segmentation"
+    techniques:
+      - Shared encoder, task-specific decoders
+      - Hierarchical Attention Sampling Modules (HASM)
+      - Split Axial Detail Modules (SADM)
+    metrics:
+      iou: "0.979"
+      dice: "0.989"
+      upper_lid_correlation: "0.903 with manual annotations"
+    segunet_takeaway: "Validates dual-decoder for eyelid — dedicated UpperLid decoder prevents sclera decoder from explaining away lid boundary pixels."
+    tags: [architecture, eye-specific, eyelid, dual-decoder, boundary]
+
+  - file: papers/dcbnet-thesis-2024.pdf
+    title: "DCBNet: Multi-Task Boundary Knowledge Distillation"
+    authors: (UND Thesis)
+    year: 2024
+    venue: UND Thesis
+    contribution: "Fuses detailed, contextual, and boundary features via semantic edge detection auxiliary task; distills to lighter student"
+    techniques:
+      - Semantic Edge Detection (SED) auxiliary task
+      - Boundary feature → segmentation branch fusion
+      - Teacher-to-student knowledge distillation
+    metrics:
+      student_gain: "72.3% → 72.8% mIoU via boundary distillation"
+      speed: "52.6 FPS"
+    segunet_takeaway: "Current CPS ensemble serves as boundary-aware teacher; distill boundary head output to lighter student inference model."
+    tags: [architecture, boundary, distillation, multi-task]

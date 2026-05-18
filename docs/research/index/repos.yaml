@@ -246,3 +246,125 @@ entries:
       - train_dann_mix.py
       - siamese_train.py
     tags: [domain-adaptation, synthetic-data, eye-specific, cyclegan, siamese]
+
+  # === Boundary & Post-Processing Repos ===
+
+  - name: clDice
+    path: repos/clDice
+    problem: "Topology-preserving loss for tubular/thin structure segmentation"
+    techniques:
+      - Differentiable soft skeletonization (iterative min/max pooling)
+      - Skeleton-intersection Dice metric
+      - Binary topology preservation guarantee
+    training_strategy: "Auxiliary loss added to standard segmentation loss — computes skeleton overlap"
+    relevance_to_segunet: "Apply soft-clDice as per-class auxiliary loss on UpperLid binary mask. Binary only — use Skeleton Recall Loss for multi-class."
+    key_files:
+      - cldice_loss/pytorch/cldice.py
+      - cldice_loss/pytorch/soft_skeleton.py
+    tags: [loss-function, topology, thin-structure, boundary]
+
+  - name: centerline_CE
+    path: repos/centerline_CE
+    problem: "Centerline cross-entropy loss — robust topology-preserving loss for vessel-like structures"
+    techniques:
+      - Cross-entropy on centerline skeleton pixels
+      - More numerically stable than clDice for small regions
+      - nnU-Net integration
+    training_strategy: "Replace or augment standard loss with centerline-focused CE"
+    relevance_to_segunet: "Better than clDice for BrightSpot — numerically stable for small near-circular class. Ready-made nnU-Net loss implementation."
+    key_files:
+      - nnUNet/losses/cldice_loss.py
+      - MICCAI_2024_clCE.pdf
+    tags: [loss-function, topology, thin-structure, boundary, robust]
+
+  - name: Skeleton-Recall
+    path: repos/Skeleton-Recall
+    problem: "Multi-class thin structure loss with 90% less GPU cost than clDice"
+    techniques:
+      - CPU-side skeleton precomputation during data loading
+      - Soft recall on precomputed tubed skeletons
+      - Native multi-class support
+      - nnU-Net v2 integration
+    training_strategy: "Skeleton computed offline; loss computed as soft recall of predictions on skeleton tubes"
+    relevance_to_segunet: "THE topological loss for SegUNET — multi-class means simultaneous UpperLid, LowerLid, BrightSpot skeleton supervision in one term at ~1.1x cost."
+    key_files:
+      - nnunetv2/training/loss/compound_losses.py
+      - nnunetv2/training/loss/dice.py
+    tags: [loss-function, topology, thin-structure, boundary, multi-class, efficient]
+
+  - name: SegFix
+    path: repos/SegFix
+    problem: "Model-agnostic post-processing that replaces boundary pixel labels with interior pixel labels"
+    techniques:
+      - Learned offset field (boundary → nearest interior pixel)
+      - Model-agnostic — works on any segmentation output
+      - Shallow HRNet branch for direction map
+    training_strategy: "Train direction map network separately; apply as post-processing on any model's output"
+    relevance_to_segunet: "Plug-in ~2-4ms post-processing within 11ms budget. Apply to non-junction boundaries only — exclude medial canthus where interior is ambiguous."
+    key_files:
+      - main.py
+      - lib/models/
+      - lib/loss/
+      - scripts/
+    tags: [post-processing, boundary, model-agnostic, deployment]
+
+  - name: pydensecrf
+    path: repos/pydensecrf
+    problem: "Python wrapper for fully-connected dense CRF with Gaussian edge potentials"
+    techniques:
+      - Permutohedral lattice approximate inference
+      - Gaussian edge potentials (appearance + smoothness)
+      - GPU-parallelizable
+    training_strategy: "Post-processing tool — apply to segmentation output at inference"
+    relevance_to_segunet: "Region-smoothing complement to SegFix. CRF on interior regions (~3-5ms at 320x240). Use with SegFix for boundary pixels."
+    key_files:
+      - pydensecrf/densecrf.pyx
+      - pydensecrf/utils.py
+      - examples/
+    tags: [post-processing, crf, inference, deployment]
+
+  - name: OASIS
+    path: repos/OASIS
+    problem: "Lightweight structure refinement using Canny edge priors fused with decoder features"
+    techniques:
+      - Pre-computed Canny edges (no neural network call)
+      - Elementwise multiply fusion with decoder features
+      - Lightweight convolutional refinement block
+    training_strategy: "Structure refinement module added to segmentation decoder"
+    relevance_to_segunet: "Cheapest boundary sharpener — Canny edge prior as attention gate on UpperLid head. <0.5ms, no trainable inference params."
+    key_files:
+      - oasis/model/
+      - oasis/config/
+      - train.py
+    tags: [post-processing, boundary, edge-prior, lightweight, deployment]
+
+  - name: CW-BASS
+    path: repos/CW-BASS
+    problem: "Confidence-weighted boundary-aware semi-supervised segmentation fixing CPS boundary blur"
+    techniques:
+      - Sobel-filtered pseudo-labels as edge supervision
+      - Confidence-weighted loss (downweights uncertain boundaries)
+      - Dynamic threshold adaptation
+      - Confidence decay stabilization
+    training_strategy: "CPS-style dual network + boundary-aware Sobel loss + confidence weighting"
+    relevance_to_segunet: "Direct CPS training upgrade. Sobel boundary loss alone gave +6.36% mIoU in ablation — largest single contributor."
+    key_files:
+      - main.py
+      - model/semseg/deeplabv3plus.py
+      - utils.py
+    tags: [semi-supervised, boundary, cps-fix, confidence-weighting]
+
+  - name: MPDC-net
+    path: repos/MPDC-net
+    problem: "Multi-perspective dynamic consistency to break CPS model cognitive bias at boundaries"
+    techniques:
+      - Perspective Fusion Module (PFM) for third-view generation
+      - Three-branch cross-pseudo supervision
+      - Feature-augmented fusion perspective
+    training_strategy: "Three networks with fused third perspective; cross-pseudo supervision across all three"
+    relevance_to_segunet: "Replace 2-network CPS with 3-branch MPDC. Extra training cost, zero inference cost. Improves boundary Hausdorff by 0.47."
+    key_files:
+      - code/networks/net_factory.py
+      - code/networks/unet.py
+      - code/Train_ACDC.py
+    tags: [semi-supervised, cps-fix, multi-perspective, boundary]

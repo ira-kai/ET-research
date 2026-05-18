@@ -12,6 +12,7 @@ in `inspiration/`. It is designed for fast lookup by a coding agent.
 | `papers-architectures.yaml` | Papers on segmentation model design |
 | `papers-training.yaml` | Papers on SSL, active learning, label efficiency |
 | `papers-datasets-robustness.yaml` | Papers on data, deployment, failure modes |
+| `papers-boundary.yaml` | Boundary losses, post-processing, CPS fixes, active learning |
 | `tags.yaml` | Inverted index: tag → list of entries |
 
 ## How to Use

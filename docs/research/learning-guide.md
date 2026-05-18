@@ -213,14 +213,80 @@ Gaps where additional research or experimentation is needed:
 
 ```
 docs/research/index/
-  master.yaml              ← Start here. 7 clusters, priority-ranked.
+  master.yaml              ← Start here. 8 clusters, priority-ranked.
   tags.yaml                ← "What covers topic X?" inverted index.
   papers-architectures.yaml ← Model design papers (12 entries)
   papers-training.yaml     ← SSL, active learning, label efficiency (10 entries)
   papers-datasets-robustness.yaml ← Data, robustness, classical (19 entries)
-  repos.yaml               ← Cloned repos with verified file paths (14 entries)
+  papers-boundary.yaml     ← Boundary losses, post-processing, CPS fixes (17 entries)
+  repos.yaml               ← Cloned repos with verified file paths (22 entries)
   README.md                ← Navigation guide for coding agents
+
+docs/research/
+  learning-guide.md              ← This file. Start here for guided tour.
+  learning-boundary-losses.md    ← Hands-on guide to thin-structure losses.
+  learning-cps-boundary-fixes.md ← How to fix CPS boundary degradation.
 ```
 
 Each YAML entry has a `segunet_takeaway` field — the single most actionable
 insight for our project. Start there before reading the full paper.
+
+---
+
+## 7. Boundary Quality Deep Dive (Pass 4)
+
+The boundary gap (Region mIoU 0.9026 → Boundary mIoU 0.7207) is now the
+primary bottleneck. Pass 4 research surfaced 17 new papers and 8 repos
+specifically targeting this gap. See `papers-boundary.yaml` for full index.
+
+### 7.1 Why CPS Degrades Boundaries
+
+CPS uses one-hot pseudo-labels from one network to supervise the other.
+This creates three systematic failure modes:
+
+1. **One-hot labels carry boundary errors as hard assignments** — zero gradient
+   signal for uncertain pixels, full incorrect signal for wrong-class pixels
+2. **Mutual reinforcement** — when both networks predict wrong at a boundary,
+   CPS provides zero corrective signal; the error is stable
+3. **No boundary-specific uncertainty** — consistency is computed uniformly
+   over all pixels; boundary pixels (intrinsically higher entropy) aren't special
+
+The pseudo-label survey (2024) calls this "catastrophic stability of wrong
+predictions" — the root cause of UpperLid at 0.586 boundary mIoU.
+
+### 7.2 Top 5 Boundary Interventions (Priority Order)
+
+| # | Intervention | Type | Expected Gain | Code? |
+|---|-------------|------|---------------|-------|
+| 1 | **BoundMatch** BCRM retrofit | Training (CPS plug-in) | +3-6 pt boundary mIoU | Yes |
+| 2 | **Skeleton Recall Loss** for UpperLid/BrightSpot | Training (loss swap) | +2-4 pt | Yes |
+| 3 | **SBC-AL** boundary consistency querying | Data (active learning) | High (root cause) | Partial |
+| 4 | **CW-BASS** confidence-weighted boundary loss | Training (loss + threshold) | +3-6 pt | Yes |
+| 5 | **SegFix** post-processing | Inference (~2-4ms) | +1-2 pt | Yes |
+
+### 7.3 The Medial Canthus Problem
+
+The medial canthus is a T-junction: LowerLid terminates, Sclera and Iris
+meet beneath it. Standard pixel-wise losses assign independent probabilities
+with no structural constraint.
+
+Three validated interventions for multi-class junctions:
+
+1. **Multi-class boundary maps** (ICIP 2025 / BSANet): encode *which pair* of
+   classes each boundary separates — the canthus gets three overlapping labels
+2. **SegFix restricted to non-junction pixels**: at T-junctions the "replace
+   with nearest interior" heuristic is ambiguous — exclude junction pixels
+3. **Boundary prototype contrastive learning**: push LowerLid/Sclera/Iris
+   features apart at the junction via signed-distance-based prototypes
+
+### 7.4 Post-Processing Stack (fits 11ms budget)
+
+```
+Canny edge prior (OASIS)  →  <0.5ms   cheapest, no trainable params
+SegFix direction map       →  ~2-4ms   non-junction boundaries only
+Dense CRF (interior)       →  ~3-5ms   region smoothing complement
+                              --------
+Total available:             ~6-10ms   fits within 11ms with model
+```
+
+*See: `papers-boundary.yaml`, `repos.yaml` (SegFix, OASIS, pydensecrf, CW-BASS, MPDC-net, Skeleton-Recall, clDice, centerline_CE)*

@@ -113,6 +113,27 @@ clusters:
       - end_to_end: "Joint segmentation + gaze estimation"
       - temporal: "Frame-to-frame consistency for smooth gaze"
 
+  - id: boundary_quality
+    title: "Boundary Quality: Losses, Post-Processing & CPS Fixes"
+    research_question: "Q8 — How to close the Region→Boundary mIoU gap (0.9026→0.7207), especially at UpperLid (0.586) and medial canthus?"
+    priority: critical
+    index_file: papers-boundary.yaml
+    key_entries:
+      - skeleton-recall-loss    # Multi-class thin structure loss, 90% cheaper than clDice
+      - boundmatch              # HIGHEST PRIORITY — retrofits boundary consistency into CPS
+      - cw-bass                 # +6.36% mIoU from boundary-aware loss alone
+      - segfix                  # Model-agnostic post-processing, ~2-4ms
+      - sbc-al                  # Active learning querying by boundary consistency
+      - focussdf                # SDF boundary weighting (fixes gradient conflict)
+      - bsanet                  # Sequential boundary→semantic disambiguation
+      - oasis                   # Cheapest boundary sharpener (<0.5ms)
+    themes:
+      - thin_structure_loss: "Topology-preserving losses for UpperLid/LowerLid connectivity"
+      - boundary_postprocessing: "SegFix + CRF + Canny fusion within 11ms budget"
+      - cps_boundary_fix: "BoundMatch/CW-BASS/MPDC retrofit onto existing CPS training"
+      - boundary_active_learning: "SBC-AL queries frames by boundary disagreement"
+      - junction_handling: "Multi-class boundary maps for medial canthus 3-way junction"
+
   - id: tools_quality
     title: "Label Quality & Data Tools"
     research_question: "How to detect and fix annotation errors?"

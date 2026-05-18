@@ -63,7 +63,14 @@ tags:
     - papers/sclera-ssl.pdf
     - papers/cross-pseudo-supervision.pdf
     - papers/unsupervised-eye-segmentation.pdf
+    - papers/boundmatch-ieee-access-2025.pdf
+    - papers/cw-bass-ijcnn-2025.pdf
+    - papers/mpdc-scientific-reports-2025.pdf
+    - papers/n-cps-arxiv-2021.pdf
+    - papers/pseudo-label-survey-2024.pdf
     - repos/CSL
+    - repos/CW-BASS
+    - repos/MPDC-net
 
   pseudo-labels:
     - papers/csl-semi-supervised.pdf
@@ -73,6 +80,7 @@ tags:
 
   active-learning:
     - papers/semi-supervised-active-learning.pdf
+    - papers/sbc-al-miccai-2024.pdf
 
   distillation:
     - papers/distillgaze.pdf
@@ -236,3 +244,79 @@ tags:
     - articles/apple-optic-id.html
     - articles/tobii-ocumen-overview.html
     - articles/tobii-vive-pro-eye.html
+
+  # === Boundary Quality (Pass 4) ===
+
+  boundary:
+    - papers/boundary-iou.pdf
+    - papers/boundmatch-ieee-access-2025.pdf
+    - papers/cw-bass-ijcnn-2025.pdf
+    - papers/bsanet-iccv-2019.pdf
+    - papers/mpdc-scientific-reports-2025.pdf
+    - papers/segfix-eccv-2020.pdf
+    - papers/oasis-iccv-2025.pdf
+    - papers/dense-crf-nips-2011.pdf
+    - papers/focussdf-2025.pdf
+    - papers/dcbnet-thesis-2024.pdf
+    - papers/atdunet-frontiers-2025.pdf
+    - papers/sbc-al-miccai-2024.pdf
+    - repos/SegFix
+    - repos/OASIS
+    - repos/CW-BASS
+    - repos/MPDC-net
+    - repos/pydensecrf
+
+  topology:
+    - papers/cldice-cvpr-2021.pdf
+    - papers/skeleton-recall-loss-eccv-2024.pdf
+    - papers/clce-miccai-2024.pdf
+    - papers/contextloss-icip-2025.pdf
+    - repos/clDice
+    - repos/centerline_CE
+    - repos/Skeleton-Recall
+
+  thin-structure:
+    - papers/cldice-cvpr-2021.pdf
+    - papers/skeleton-recall-loss-eccv-2024.pdf
+    - papers/clce-miccai-2024.pdf
+    - papers/contextloss-icip-2025.pdf
+    - repos/clDice
+    - repos/centerline_CE
+    - repos/Skeleton-Recall
+
+  loss-function:
+    - papers/cldice-cvpr-2021.pdf
+    - papers/skeleton-recall-loss-eccv-2024.pdf
+    - papers/clce-miccai-2024.pdf
+    - papers/focussdf-2025.pdf
+    - papers/contextloss-icip-2025.pdf
+    - repos/clDice
+    - repos/centerline_CE
+    - repos/Skeleton-Recall
+
+  post-processing:
+    - papers/segfix-eccv-2020.pdf
+    - papers/dense-crf-nips-2011.pdf
+    - papers/oasis-iccv-2025.pdf
+    - repos/SegFix
+    - repos/pydensecrf
+    - repos/OASIS
+
+  cps-fix:
+    - papers/boundmatch-ieee-access-2025.pdf
+    - papers/cw-bass-ijcnn-2025.pdf
+    - papers/mpdc-scientific-reports-2025.pdf
+    - papers/n-cps-arxiv-2021.pdf
+    - repos/CW-BASS
+    - repos/MPDC-net
+
+  junction:
+    - papers/bsanet-iccv-2019.pdf
+    - papers/mpdc-scientific-reports-2025.pdf
+
+  eyelid:
+    - papers/atdunet-frontiers-2025.pdf
+    - papers/dcbnet-thesis-2024.pdf
+
+  sdf:
+    - papers/focussdf-2025.pdf
