@@ -581,7 +581,10 @@ entries:
 
   - url: http://andrewd.ces.clemson.edu/research/vislab/docs/etra08-short.pdf
     type: paper
-    name: "Starburst: Limbus/Pupil Switching for Wearable Eye Tracking (Li & Parkhurst 2005)"
+    name: "Limbus/Pupil Switching for Wearable Eye Tracking Under Variable Lighting Conditions (Ryan, Duchowski & Birchfield, ETRA 2008)"
+    doi: 10.1145/1344471.1344487
+    # NOTE: previously mislabeled as the original Li & Parkhurst 2005 Starburst paper —
+    # the PDF at this URL is the Ryan et al. 2008 ETRA short paper.
     discovered: 2026-05-05
     source: perplexity-2026-05-04-pass3.md
     status: downloaded
@@ -589,6 +592,7 @@ entries:
   - url: https://www.cl.cam.ac.uk/research/rainbow/projects/pupiltracking/files/Swirski,%20Bulling,%20Dodgson%20-%202012%20-%20Robust%20real-time%20pupil%20tracking%20in%20highly%20off-axis%20images.pdf
     type: paper
     name: "Robust real-time pupil tracking in highly off-axis images (Swirski 2012)"
+    doi: 10.1145/2168556.2168585
     discovered: 2026-05-05
     source: perplexity-2026-05-04-pass3.md
     status: downloaded
@@ -668,3 +672,278 @@ entries:
     discovered: 2026-05-05
     source: perplexity-2026-05-04-pass3.md
     status: downloaded
+
+  # ============================================================
+  # PASS 4 — Boundary Quality / CPS Failure Mode (2026-05-18)
+  # Source: perplexity-2026-05-18-pass4.md
+  # ============================================================
+
+  # --- Semi-supervised boundary: training interventions ---
+
+  - url: https://arxiv.org/abs/2503.23519
+    type: paper
+    name: "BoundMatch: Boundary Consistency Regularized Multi-Task Learning for Semi-Supervised Segmentation (IEEE Access 2025)"
+    description: "Retrofits class-pair-specific boundary consistency into teacher-student CPS pipeline. BSF + SGF fusion modules. Directly addresses CPS boundary fixed-point failure."
+    local: inspiration/papers/boundmatch-ieee-access-2025.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: null
+    type: repo
+    name: "BoundMatch (official code)"
+    description: "Plug-in to any teacher-student framework. Publicly available per authors — no public repo found in search."
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: unavailable  # authors claim code available but no GitHub found; check paper page
+
+  - url: https://arxiv.org/abs/2502.15152
+    type: paper
+    name: "CW-BASS: Confidence-Weighted Boundary-Aware Semi-Supervised Segmentation (IJCNN 2025)"
+    description: "Sobel-filtered pseudo-label edge supervision + confidence-weighted loss. Boundary-aware term alone: +6.36% mIoU gain in ablation."
+    local: inspiration/papers/cw-bass-ijcnn-2025.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://github.com/psychofict/CW-BASS
+    type: repo
+    name: "CW-BASS (official code)"
+    local: inspiration/repos/CW-BASS
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://www.nature.com/articles/s41598-025-03124-2
+    type: paper
+    name: "MPDC: Multi-Perspective Dynamic Consistency for Semi-Supervised Segmentation (Scientific Reports 2025)"
+    description: "Three-branch CPS with Perspective Fusion Module. Improved 95th-percentile Hausdorff Distance by 0.47 on ACDC with 10% labels. NOTE: venue is Scientific Reports, not Pattern Recognition as cited in Perplexity report."
+    local: inspiration/papers/mpdc-scientific-reports-2025.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://github.com/SoulRuolan/MPDC-net
+    type: repo
+    name: "MPDC-net (official code)"
+    local: inspiration/repos/MPDC-net
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2112.07528
+    type: paper
+    name: "n-CPS: Generalising Cross Pseudo Supervision to n Networks (arXiv 2021)"
+    description: "n-subnetwork extension of CPS with CutMix. Ensemble averaging reduces boundary prediction variance."
+    local: inspiration/papers/n-cps-arxiv-2021.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2403.01909
+    type: paper
+    name: "Survey of Pseudo-Label Methods for Semi-Supervised Segmentation (arXiv 2024)"
+    description: "Diagnoses CPS catastrophic stability of wrong boundary predictions as primary thin-class failure mode."
+    local: inspiration/papers/pseudo-label-survey-2024.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  # --- Active learning / data coverage ---
+
+  - url: https://papers.miccai.org/miccai-2024/paper/3047_paper.pdf
+    type: paper
+    name: "SBC-AL: Structure and Boundary Consistency Active Learning for Medical Image Segmentation (MICCAI 2024)"
+    description: "SFP + ASR modules. BCS query criterion targets images with high SCS but low boundary agreement — exactly SegUNET's regime."
+    local: inspiration/papers/sbc-al-miccai-2024.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  # --- Thin structure losses ---
+
+  - url: https://arxiv.org/abs/2404.03010
+    type: paper
+    name: "Skeleton Recall Loss: First Multi-Class Thin Structure Segmentation Loss (ECCV 2024)"
+    description: "CPU-precomputed skeletons, soft recall on tubed skeleton. 90% cheaper than clDice. Multi-class: covers UpperLid, LowerLid, iris, BrightSpot in one term."
+    local: inspiration/papers/skeleton-recall-loss-eccv-2024.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://github.com/MIC-DKFZ/Skeleton-Recall
+    type: repo
+    name: "Skeleton Recall Loss (official code, MIC-DKFZ)"
+    local: inspiration/repos/Skeleton-Recall
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2003.07311
+    type: paper
+    name: "clDice / soft-clDice: Topology-Preserving Loss for Tubular Structure Segmentation (CVPR 2021)"
+    description: "Differentiable soft skeletonization via min/max-pooling. Guarantees topology preservation up to homotopy. Binary per-class."
+    local: inspiration/papers/cldice-cvpr-2021.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://github.com/jocpae/clDice
+    type: repo
+    name: "clDice / soft-clDice (official code)"
+    local: inspiration/repos/clDice
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://papers.miccai.org/miccai-2024/paper/1081_paper.pdf
+    type: paper
+    name: "clCE: Centerline Cross-Entropy Loss for Topology-Aware Segmentation (MICCAI 2024)"
+    description: "Reformulates clDice with cross-entropy for noise robustness. Better gradient stability for small classes like BrightSpot."
+    local: inspiration/papers/clce-miccai-2024.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://github.com/cesaracebes/centerline_CE
+    type: repo
+    name: "clCE centerline cross-entropy (official code)"
+    local: inspiration/repos/centerline_CE
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2511.11864
+    type: paper
+    name: "FocusSDF: Signed Distance Function Boundary Weighting for Segmentation (arXiv 2025)"
+    description: "SDF-based adaptive boundary pixel weighting with exponential decay. Avoids gradient conflict with Dice+Focal that broke BCE upweighting."
+    local: inspiration/papers/focussdf-2025.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2506.11134
+    type: paper
+    name: "ContextLoss (CLoss): Topological Error Context for Thin Structure Segmentation (arXiv 2025)"
+    description: "Extends clDice with spatial context around topological errors. Relevant to medial canthus where topological errors cluster."
+    local: inspiration/papers/contextloss-icip-2025.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: null
+    type: paper
+    name: "DCBNet: Multi-Task Boundary Knowledge Distillation for Semantic Segmentation (UND Thesis 2024)"
+    description: "SED auxiliary task + teacher-student boundary distillation. 52.6 FPS student after distillation."
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: unavailable  # Not publicly indexed; likely institutional thesis repository only
+
+  # --- Post-processing ---
+
+  - url: https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123570477.pdf
+    type: paper
+    name: "SegFix: Model-Agnostic Boundary Refinement for Segmentation (ECCV 2020)"  # canonical arXiv title; arXiv 2007.04269
+    description: "Replaces boundary pixel labels with nearest interior pixel via learned direction map. ~2ms at 320x240. Apply only to non-junction pixels."
+    local: inspiration/papers/segfix-eccv-2020.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://github.com/openseg-group/openseg.pytorch
+    type: repo
+    name: "SegFix / openseg (official code, openseg-group)"
+    local: inspiration/repos/SegFix
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/1210.5644
+    type: paper
+    name: "Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials (Krähenbühl & Koltun, NeurIPS 2011)"
+    description: "Dense CRF via permutohedral lattice. Canonical post-processing for label map sharpening. 3–6ms at low res on embedded GPU."
+    local: inspiration/papers/dense-crf-nips-2011.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://github.com/lucasb-eyer/pydensecrf
+    type: repo
+    name: "pydensecrf: Python/Cython wrapper for dense CRF inference"
+    local: inspiration/repos/pydensecrf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://arxiv.org/abs/2507.18944
+    type: paper
+    name: "OASIS: Structure Matters — Revisiting Boundary Refinement in Video Object Segmentation (ICCV 2025)"
+    description: "Canny edge prior fused with decoder features via small conv block. <0.5ms. Suppresses false positives in smooth sclera region."
+    local: inspiration/papers/oasis-iccv-2025.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://github.com/jinlab-imvr/OASIS
+    type: repo
+    name: "OASIS boundary refinement (official code)"
+    local: inspiration/repos/OASIS
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: null
+    type: paper
+    name: "Multi-Class Part Parsing Based on Multi-Class Boundaries (ICIP 2025)"
+    description: "Class-pair-specific boundary maps as decoder input channel. Weighted multi-label CE loss. Directly models medial canthus T-junction. NOTE: could not locate this specific paper — may be the BSANet line of work or a yet-to-be-indexed preprint."
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: unavailable  # Not found in search; Perplexity citation may be imprecise
+
+  # --- Architecture / contrastive ---
+
+  - url: https://openaccess.thecvf.com/content_ICCV_2019/papers/Zhao_Multi-Class_Part_Parsing_With_Joint_Boundary-Semantic_Awareness_ICCV_2019_paper.pdf
+    type: paper
+    name: "BSANet: Multi-Class Part Parsing with Joint Boundary-Semantic Awareness (ICCV 2019)"
+    description: "BASS spatial attention + SACS channel selection. Sequential: localize boundary then disambiguate class. Addresses UpperLid/BrightSpot confusion pattern."
+    local: inspiration/papers/bsanet-iccv-2019.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://dl.acm.org/doi/10.1109/TIP.2024.3463412
+    type: paper
+    name: "Boundary-Aware Prototype Contrastive Learning for Semi-Supervised Segmentation (IEEE TIP 2024)"
+    description: "SDF-based boundary prototypes. Pixel-prototype contrastive loss pulls same-class boundary features together, separates adjacent-class features. No new labels needed."
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: unavailable  # IEEE TIP paywalled; no arXiv preprint found
+
+  # --- Eye-specific ---
+
+  - url: https://www.frontiersin.org/journals/medicine/articles/10.3389/fmed.2025.1631468/pdf
+    type: paper
+    name: "Dual U-Net with multi-task attention for automated eyelid curvature quantification (Wu et al., Frontiers in Medicine 2025)"
+    doi: 10.3389/fmed.2025.1631468
+    # NOTE: previously mislabeled "AtDU-Net ... Yu et al." — the PDF and DOI are the Wu et al. paper.
+    description: "Shared encoder + task-specific decoders (HASM, SADM). IoU 0.979, upper eyelid curvature correlation 0.903. Prevents sclera decoder from explaining away UpperLid."
+    local: inspiration/papers/atdunet-frontiers-2025.pdf
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: downloaded
+
+  - url: https://iovs.arvojournals.org/article.aspx?articleid=2782549
+    type: paper
+    name: "Multi-Device Pupil, Limbus, and Eyelid Segmentation — Clinical Validation (IOVS 2022)"
+    description: "Morley & Evans. 604 IR images, 99.8% pupil/limbus detection. Active contours post-processing for eyelid boundary. Only paper treating eyelid boundary as structurally distinct."
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: unavailable  # ARVO journal — conference abstract page returns 403
+
+  - url: https://www.sciencedirect.com/science/article/abs/pii/S0169260722007039
+    type: paper
+    name: "Lens Structure Segmentation from AS-OCT Images via Shape-Based Learning (Computers in Biology and Medicine, 2023)"
+    description: "Convex shape priors embedded in level set loss. +0.0156 boundary MIoU on lens nucleus/cortex. Applicable to UpperLid/LowerLid convexity constraint."
+    discovered: 2026-05-18
+    source: perplexity-2026-05-18-pass4.md
+    status: unavailable  # ScienceDirect paywalled; no PMC open-access version

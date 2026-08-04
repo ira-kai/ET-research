@@ -1,0 +1,67 @@
+# athenaeum-citekeys.yaml — Mapping of ET-research donated sources to Athenaeum citekeys
+# Athenaeum: BigscreenVR academic sources library (github.com/BigscreenVR/Athenaeum),
+# reachable via spt agent Librarian@f7afcc82 (Athenaeum-Library node, BS-Resources subnet).
+# Donated 2026-07-08: 45 arXiv + 2 DOI sources; all landed, arXiv ones with fulltext.
+# The two DOI entries are metadata-only stubs (no open-access PDF).
+
+arxiv:
+  "1210.5644": krahenbuhl2012efficient
+  "1405.0006": kassner2014pupil
+  "1511.06575": fuhl2015else
+  "1712.08900": santini2017pure
+  "1905.03702": garbin2019openeds
+  "1910.00694": chaudhary2019ritnet
+  "2003.07311": shit2020cldice
+  "2005.03876": palmero2020openeds2020
+  "2006.03642": nair2020rit
+  "2007.09600": kothari2020ellseg
+  "2103.09369": chaudhary2021semi
+  "2103.16562": cheng2021boundary
+  "2105.15203": xie2021segformer
+  "2106.15828": tapia2021semantic
+  "2110.02178": mehta2021mobilevit
+  "2111.07209": aziz2021assessment
+  "2112.07528": filipiak2021n
+  "2201.07367": feng2022real
+  "2204.05525": zhang2022topformer
+  "2206.01191": li2022efficientformer
+  "2210.11637": zhang2022slippage
+  "2305.14080": bozkir2023eye
+  "2311.08077": maquiling2023zero
+  "2312.06660": zhou2023edgesam
+  "2403.01909": ran2024semi
+  "2403.07210": aziz2024evaluation
+  "2403.15947": nguyen2024deep
+  "2404.03010": kirchhoff2024skeleton
+  "2408.17231": jia2024condseg
+  "2410.06131": deng2024unsupervised
+  "2411.08490": sharma2024impact
+  "2501.07750": wang2025boosting
+  "2501.17343": qu2025post
+  "2501.19227": ma2025integrating
+  "2502.15152": tarubinga2025cw
+  "2503.23519": ishikawa2025boundmatch
+  "2504.05499": xue2025few
+  "2505.07691": ghamsarian2025feedback
+  "2506.11134": schacht2025contextloss
+  "2507.09649": peng2025eyeseg
+  "2507.18944": qin2025structure
+  "2509.16704": liu2025when
+  "2511.11864": shafique2025focussdf
+  "2603.07832": shapira2026gazeshift
+  "2604.02509": jiang2026rapidly
+
+# Second batch (cross-referenced papers, ingested 2026-07-08):
+arxiv_batch2:
+  "2007.04269": yuan2020segfix           # SegFix: Model-Agnostic Boundary Refinement for Segmentation
+
+doi_batch2:
+  "10.3389/fmed.2025.1631468": wu2025dual  # Dual U-Net eyelid curvature (Wu et al.) — our old "AtDU-Net" label was wrong
+  "10.1109/ICCV.2019.00927": zhao2019multi     # BSANet / Multi-Class Part Parsing (ICCV 2019), fulltext
+  "10.1145/2168556.2168585": swirski2012robust # Swirski 2012 pupil tracking (ETRA 2012), fulltext
+  "10.1145/1344471.1344487": ryan2008limbus    # Ryan et al. Limbus/Pupil Switching (ETRA 2008; was mislabeled "Starburst" locally)
+                                               # fulltext attached from Clemson vislab open PDF
+
+doi_metadata_only:
+  "10.1145/3649902.3653351": chugh2024csa   # CSA-CNN, ACM paywalled — no fulltext in Athenaeum
+  "10.26153/tsw/46018": phil2023cross       # UT Austin repository landing page only — no fulltext
